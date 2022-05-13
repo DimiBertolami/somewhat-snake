@@ -8,8 +8,8 @@ var viewportWidth = document.documentElement.clientHeight;
 const IncreaseValue = 10;
 const appleSize = 30;
 var canvasEl = document.getElementsByTagName('canvas')[0];
-canvasEl.width = viewportHeight;
-canvasEl.height = viewportWidth;
+canvasEl.width = viewportHeight-appleSize;
+canvasEl.height = viewportWidth-appleSize;
 
 // this code generates the random apples
 let randomApple = generateApple();
@@ -36,8 +36,8 @@ console.log(arrApples[0][1]);
 
 
 window.addEventListener('resize',()=>{
-    viewportWidth = document.documentElement.clientWidth;
-    viewportHeight = document.documentElement.clientHeight;
+    viewportWidth = document.documentElement.clientWidth-appleSize;
+    viewportHeight = document.documentElement.clientHeight-appleSize;
 })
 
 const player = document.getElementById("ReadyPlayerOne");
@@ -79,8 +79,8 @@ main();
 function movePlayer(x, y){
     // console.log(viewportHeight);
     // console.log(viewportWidth);
-    let maxViewportHeight = viewportHeight-60;
-    let maxViewportWidth = viewportWidth-45;
+    let maxViewportHeight = viewportHeight-appleSize-IncreaseValue;
+    let maxViewportWidth = viewportWidth-appleSize-IncreaseValue;
     let moveXY = document.getElementById("ReadyPlayerOne");
     // console.log("x: " + x + " y: " + y);
     // console.log("direction: " + direction);
@@ -92,12 +92,12 @@ function movePlayer(x, y){
         y=7
         direction = "";
     }
-    if(x>=maxViewportHeight){
-        x=maxViewportHeight;
+    if(x>=maxViewportHeight-appleSize-IncreaseValue){
+        x=maxViewportHeight-appleSize-IncreaseValue;
         direction = "";
     }
-    if(y>=maxViewportWidth){
-        y=maxViewportWidth;
+    if(y>=maxViewportWidth-appleSize-IncreaseValue){
+        y=maxViewportWidth-appleSize-IncreaseValue;
         direction = "";
     }
     moveXY.style.left = x + "px";
