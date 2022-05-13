@@ -1,8 +1,11 @@
 
 
-var viewportWidth = 635;
-var viewportHeight = 1385;
-const IncreaseValue = 20;
+// var viewportWidth = 635;
+// var viewportHeight = 1385;
+var viewportHeight = document.documentElement.clientWidth;
+var viewportWidth = document.documentElement.clientHeight;
+
+const IncreaseValue = 10;
 const appleSize = 30;
 // console.log("apple dropped: " + "(x,y): (" + appleX + "," + appleY + ") size: " + appleSize);
 let randomApple = generateApple();
@@ -15,8 +18,16 @@ let randomApple4 = generateApple();
 console.log("apple dropped: (x,y): (" + randomApple4[0] + "," + randomApple4[1] + ") and size = " + randomApple4[2]);
 let randomApple5 = generateApple();
 console.log("apple dropped: (x,y): (" + randomApple5[0] + "," + randomApple5[1] + ") and size = " + randomApple5[2]);
-
-
+let arrApples = [
+    [randomApple[0], randomApple[1], randomApple[2]],
+    [randomApple2[0], randomApple2[1], randomApple2[2]],
+    [randomApple3[0], randomApple3[1], randomApple3[2]],
+    [randomApple4[0], randomApple4[1], randomApple4[2]],
+    [randomApple5[0], randomApple5[1], randomApple5[2]]
+]
+console.log(arrApples);
+console.log(arrApples[0]);
+console.log(arrApples[0][1]);
 window.addEventListener('resize',()=>{
     viewportWidth = document.documentElement.clientWidth;
     viewportHeight = document.documentElement.clientHeight;
