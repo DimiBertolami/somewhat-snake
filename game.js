@@ -7,17 +7,21 @@ var viewportWidth = document.documentElement.clientHeight;
 
 const IncreaseValue = 10;
 const appleSize = 30;
-// console.log("apple dropped: " + "(x,y): (" + appleX + "," + appleY + ") size: " + appleSize);
+var canvasEl = document.getElementsByTagName('canvas')[0];
+canvasEl.width = viewportHeight-15;
+canvasEl.height = viewportWidth-25;
+
+// this code generates the random apples
 let randomApple = generateApple();
-console.log("apple dropped: (x,y): (" + randomApple[0] + "," + randomApple[1] + ") and size = " + randomApple[2]);
+// console.log("apple dropped: (x,y): (" + randomApple[0] + "," + randomApple[1] + ") and size = " + randomApple[2]);
 let randomApple2 = generateApple();
-console.log("apple dropped: (x,y): (" + randomApple2[0] + "," + randomApple2[1] + ") and size = " + randomApple2[2]);
+// console.log("apple dropped: (x,y): (" + randomApple2[0] + "," + randomApple2[1] + ") and size = " + randomApple2[2]);
 let randomApple3 = generateApple();
-console.log("apple dropped: (x,y): (" + randomApple3[0] + "," + randomApple3[1] + ") and size = " + randomApple3[2]);
+// console.log("apple dropped: (x,y): (" + randomApple3[0] + "," + randomApple3[1] + ") and size = " + randomApple3[2]);
 let randomApple4 = generateApple();
-console.log("apple dropped: (x,y): (" + randomApple4[0] + "," + randomApple4[1] + ") and size = " + randomApple4[2]);
+// console.log("apple dropped: (x,y): (" + randomApple4[0] + "," + randomApple4[1] + ") and size = " + randomApple4[2]);
 let randomApple5 = generateApple();
-console.log("apple dropped: (x,y): (" + randomApple5[0] + "," + randomApple5[1] + ") and size = " + randomApple5[2]);
+// console.log("apple dropped: (x,y): (" + randomApple5[0] + "," + randomApple5[1] + ") and size = " + randomApple5[2]);
 let arrApples = [
     [randomApple[0], randomApple[1], randomApple[2]],
     [randomApple2[0], randomApple2[1], randomApple2[2]],
@@ -28,9 +32,12 @@ let arrApples = [
 console.log(arrApples);
 console.log(arrApples[0]);
 console.log(arrApples[0][1]);
+// this code generates the random apples
+
+
 window.addEventListener('resize',()=>{
-    viewportWidth = document.documentElement.clientWidth;
-    viewportHeight = document.documentElement.clientHeight;
+    viewportWidth = document.documentElement.clientWidth-15;
+    viewportHeight = document.documentElement.clientHeight-25;
 })
 
 const player = document.getElementById("ReadyPlayerOne");
