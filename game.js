@@ -77,23 +77,17 @@ main();
 
 function getPlayerLocation(){
     let top = player.style.top;
-    console.log("top: " + top);
     let left = player.style.left;
-    console.log("left: " + left);
-    // let bottom = ;
     for (let i = 0; i < arrAppleBoundaries.length; i++) {
         if(x >= arrAppleBoundaries[i][0] && x <= arrAppleBoundaries[i][2]){
-            console.log(i + " boundaries are crossed!");
-            console.log(arrAppleBoundaries[i][0] + " x " + arrAppleBoundaries[i][2] + " " + x);
             if(y >= arrAppleBoundaries[i][1] && y <= arrAppleBoundaries[i][3]){
                 //grow snake grow! for now console log what you want to do little snake.
-                console.log(i + " boundaries are crossed!");
-                console.log(arrAppleBoundaries[i][1] + " y " + arrAppleBoundaries[i][3] + " " + y);
                 control.clearRect(arrAppleBoundaries[i][0], arrAppleBoundaries[i][1], arrAppleBoundaries[i][2], arrAppleBoundaries[i][3]);
-
+                arrAppleBoundaries.splice(i, 1);
             }
         }
     }
+    console.log(arrAppleBoundaries);
 }
 
 function movePlayer(x, y){
