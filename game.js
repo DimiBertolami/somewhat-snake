@@ -1,18 +1,10 @@
-// let canvas = document.getElementById('canvas');
-// let context = canvas.getContext("2d");
-// let r = canvas.parentElement.getBoundingClientRect();
-// canvas.width = r.width;
-// canvas.height = r.height;
-//
-// context.fillStyle = "red";
-// context.fillRect(0, 0, canvas.width, canvas.height);
-/*----GetWindowSizeNoScrollBarrs--START-------*/
-//Get inner width and height of current window
-// var viewportWidth = document.documentElement.clientWidth;
-// var viewportHeight = document.documentElement.clientHeight;
+
+
 var viewportWidth = 635;
 var viewportHeight = 1385;
-//Update values if window is resized
+let appleSize = 30;
+generateApple();
+
 window.addEventListener('resize',()=>{
     viewportWidth = document.documentElement.clientWidth;
     viewportHeight = document.documentElement.clientHeight;
@@ -34,6 +26,7 @@ document.body.addEventListener("keyup", function(event){
     // console.log("letting go of key: " + direction);
     }
 )
+
 
 function main(){
     if(direction === 'ArrowRight'){
@@ -80,4 +73,17 @@ function movePlayer(x, y){
     }
     moveXY.style.left = x + "px";
     moveXY.style.top  = y + "px";
+}
+
+function generateApple(){
+    const control = document.getElementById('canvas').getContext('2d');
+    // const ctx = canvas.getContext('2d');
+    let appleX = intRandom(0, 1370);
+    let appleY = intRandom(0,625);
+    control.fillStyle = 'red';
+    control.fillRect(appleX, appleY, appleSize, appleSize);
+}
+
+function intRandom(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
 }
