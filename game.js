@@ -1,7 +1,16 @@
+let canvas = document.getElementById('canvas');
+let context = canvas.getContext("2d");
+let r = canvas.parentElement.getBoundingClientRect();
+canvas.width = r.width;
+canvas.height = r.height;
+
+context.fillStyle = "red";
+context.fillRect(0, 0, canvas.width, canvas.height);
 
 const player = document.getElementById("ReadyPlayerOne");
 let x = 300;
 let y= 300;
+let IncreaseValue = 20;
 let direction;
 
 document.body.addEventListener("keydown", function(event){
@@ -18,16 +27,16 @@ document.body.addEventListener("keyup", function(event){
 function main(){
     if(direction === 'ArrowRight'){
         x++;
-        x= x+10;
+        x= x+IncreaseValue;
     }
     if(direction === 'ArrowLeft'){
-        x=x-10;
+        x=x-IncreaseValue;
     }
     if(direction === 'ArrowDown'){
-        y= y+10;
+        y= y+IncreaseValue;
     }
     if(direction === 'ArrowUp'){
-        y=y-10;
+        y=y-IncreaseValue;
     }
     movePlayer(x, y);
     setTimeout(main, 50);
