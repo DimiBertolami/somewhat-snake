@@ -13,7 +13,7 @@ window.addEventListener('resize',()=>{
 const player = document.getElementById("ReadyPlayerOne");
 let x = viewportHeight/2;
 let y= viewportWidth/2;
-let IncreaseValue = 10;
+let IncreaseValue = 1;
 let direction;
 
 document.body.addEventListener("keydown", function(event){
@@ -80,7 +80,7 @@ function generateApple(){
     // const ctx = canvas.getContext('2d');
     let appleX = intRandom(0, 1370);
     let appleY = intRandom(0,625);
-    control.fillStyle = 'red';
+    control.fillStyle = 'yellow';
     control.fillRect(appleX, appleY, appleSize, appleSize);
 }
 

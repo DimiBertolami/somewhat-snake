@@ -6,6 +6,7 @@ div {
     padding: 10px;
     border: 2px solid yellow;
     margin: 0;
-    background-color: deepskyblue;
+    background-color: blue;
+    opacity: 50%;
     position:absolute;
 }
