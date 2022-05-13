@@ -17,21 +17,19 @@ let randomApple2 = generateApple();
 let randomApple3 = generateApple();
 let randomApple4 = generateApple();
 let randomApple5 = generateApple();
-// define all boundaries
-let arrApples = [
-    [randomApple[0], randomApple[1], randomApple[2],randomApple[3]],
-    [randomApple2[0], randomApple2[1], randomApple2[2]],randomApple2[3],
-    [randomApple3[0], randomApple3[1], randomApple3[2]],randomApple3[3],
-    [randomApple4[0], randomApple4[1], randomApple4[2]],randomApple4[3],
-    [randomApple5[0], randomApple5[1], randomApple5[2]], randomApple5[3]
-]
-console.log("array of apples");
-console.log(arrApples);
-for (let i = 0; i < arrApples.length; i++) {
-
-    console.log("apple (" + (i+1) + ") (x1,y1): (" + arrApples[i][0] + ", " + arrApples[i][1] + ") (x2,y2): (" + arrApples[i][2] + "," + arrApples[i][2] + ")");
+// define all boundaries in new array with values of (x1,y1,x2,y2)
+let arrAppleBoundaries = [
+        [randomApple[0],  randomApple[1],  randomApple[2],  randomApple[3]],
+        [randomApple2[0], randomApple2[1], randomApple2[2], randomApple2[3]],
+        [randomApple3[0], randomApple3[1], randomApple3[2], randomApple3[3]],
+        [randomApple4[0], randomApple4[1], randomApple4[2], randomApple4[3]],
+        [randomApple5[0], randomApple5[1], randomApple5[2], randomApple5[3]]
+    ]
+// console.log("apples is " + arrAppleBoundaries.length);
+console.log(arrAppleBoundaries);
+for (let i = 0; i < arrAppleBoundaries.length; i++) {
+    console.log("apple (" + (i+1) + ") (x1,y1): (" + arrAppleBoundaries[i][0] + "," + arrAppleBoundaries[i][1] + ") (x2,y2): (" + arrAppleBoundaries[i][2] + "," + arrAppleBoundaries[i][3] + ")");
 }
-// this code generates the random apples
 
 
 window.addEventListener('resize',()=>{
@@ -70,14 +68,14 @@ function main(){
         y=y-IncreaseValue;
     }
     movePlayer(x, y);
-    setTimeout(main, 50);
+    setTimeout(main, 1000);
 }
 
 main();
 
 function movePlayer(x, y){
     // console.log(viewportHeight);
-    // console.log(viewportWidth);
+    console.log("_________________________________________________________________________________");
     let maxViewportHeight = viewportHeight-appleSize-IncreaseValue;
     let maxViewportWidth = viewportWidth-appleSize-IncreaseValue;
     let moveXY = document.getElementById("ReadyPlayerOne");
@@ -99,16 +97,29 @@ function movePlayer(x, y){
         y=maxViewportWidth-appleSize-IncreaseValue-IncreaseValue-IncreaseValue-5;
         direction = "";
     }
+    for (let i = 0; i < arrAppleBoundaries.length; i++) {
+        if(x === arrAppleBoundaries[i][0] || x===arrAppleBoundaries[i][2]){
+            console.log(arrAppleBoundaries[i][0] + " x " + arrAppleBoundaries[i][2]);
+            if(y === arrAppleBoundaries[i][1] || x === arrAppleBoundaries[i][3]){
+                console.log(arrAppleBoundaries[i][1] + " y " + arrAppleBoundaries[i][3]);
+                //grow snake grow! for now consolelog what you want to do little snake..
+                // what kind of monster feeds a snake apples by the way..
+                // console.log("boundaries are crossed!")
+
+            }
+        }
+    }
     moveXY.style.left = x + "px";
     moveXY.style.top  = y + "px";
 }
 
 function generateApple(){
     const control = document.getElementById('canvas').getContext('2d');
-    let appleX = intRandom(10, 1360);
-    let appleY = intRandom(10,615);
     let rTwo = appleSize
     let r = rTwo / 2;
+    let appleX = intRandom(r, 1360);
+    let appleY = intRandom(r,615);
+
     // inside color of the apple (red)
     control.fillStyle = '#FF0000';
     // begin drawing
@@ -119,18 +130,23 @@ function generateApple(){
     control.fill();
     // border of the circle
     control.lineWidth = 3;
+    // not red but close
     control.strokeStyle = '#FF0066';
     control.stroke();
     // draw green
-    control.fillStyle = 'green';
+    control.fillStyle = "green";
     // half the opacity of the apple
     control.globalAlpha = 0.5;
-    // actually draw the boundaries
-    control.fillRect(appleX-r-2, appleY-r-2, appleSize+3, appleSize+3);
+    // actually draw the boundaries fillRect(x, y, width plus a little extra, height plus a little extra);
+    let appleRectX1 = appleX-r-3;
+    let appleRectY1 = appleY-r-3;
+    let appleRectX2 = appleX-r+6;
+    let appleRectY2 = appleY-r+6;
+    control.fillRect(appleRectX1, appleRectY1, appleSize+6, appleSize+6);
     // reset opacity for further drawing..
     control.globalAlpha = 1;
-    // store boundaries in new array
-    return [appleX-r, appleY-r, parseInt(appleX)+r, parseInt(appleY)+r];
+    // store boundaries in new array  (x1,y1,x2,y2)
+    return [appleRectX1, appleRectY1, appleRectX2, appleRectY2];
 }
 
 function intRandom(min, max) { // min and max included
