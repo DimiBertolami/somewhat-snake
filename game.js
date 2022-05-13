@@ -13,25 +13,24 @@ canvasEl.height = viewportWidth-appleSize-appleSize;
 
 // this code generates the random apples
 let randomApple = generateApple();
-// console.log("apple dropped: (x,y): (" + randomApple[0] + "," + randomApple[1] + ") and size = " + randomApple[2]);
 let randomApple2 = generateApple();
-// console.log("apple dropped: (x,y): (" + randomApple2[0] + "," + randomApple2[1] + ") and size = " + randomApple2[2]);
 let randomApple3 = generateApple();
-// console.log("apple dropped: (x,y): (" + randomApple3[0] + "," + randomApple3[1] + ") and size = " + randomApple3[2]);
 let randomApple4 = generateApple();
-// console.log("apple dropped: (x,y): (" + randomApple4[0] + "," + randomApple4[1] + ") and size = " + randomApple4[2]);
 let randomApple5 = generateApple();
-// console.log("apple dropped: (x,y): (" + randomApple5[0] + "," + randomApple5[1] + ") and size = " + randomApple5[2]);
+// define all boundaries
 let arrApples = [
-    [randomApple[0], randomApple[1], randomApple[2]],
-    [randomApple2[0], randomApple2[1], randomApple2[2]],
-    [randomApple3[0], randomApple3[1], randomApple3[2]],
-    [randomApple4[0], randomApple4[1], randomApple4[2]],
-    [randomApple5[0], randomApple5[1], randomApple5[2]]
+    [randomApple[0], randomApple[1], randomApple[2],randomApple[3]],
+    [randomApple2[0], randomApple2[1], randomApple2[2]],randomApple2[3],
+    [randomApple3[0], randomApple3[1], randomApple3[2]],randomApple3[3],
+    [randomApple4[0], randomApple4[1], randomApple4[2]],randomApple4[3],
+    [randomApple5[0], randomApple5[1], randomApple5[2]], randomApple5[3]
 ]
+console.log("array of apples");
 console.log(arrApples);
-console.log(arrApples[0]);
-console.log(arrApples[0][1]);
+for (let i = 0; i < arrApples.length; i++) {
+
+    console.log("apple (" + (i+1) + ") (x1,y1): (" + arrApples[i][0] + ", " + arrApples[i][1] + ") (x2,y2): (" + arrApples[i][2] + "," + arrApples[i][2] + ")");
+}
 // this code generates the random apples
 
 
@@ -106,22 +105,32 @@ function movePlayer(x, y){
 
 function generateApple(){
     const control = document.getElementById('canvas').getContext('2d');
-    // const ctx = canvas.getContext('2d');
     let appleX = intRandom(10, 1360);
     let appleY = intRandom(10,615);
-    // control.fillStyle = 'green';
-    // control.fillRect(appleX, appleY, appleSize, appleSize);
-
-    let r = 15;
+    let rTwo = appleSize
+    let r = rTwo / 2;
+    // inside color of the apple (red)
     control.fillStyle = '#FF0000';
+    // begin drawing
     control.beginPath();
+    // circle (x, y, startAngle = 0, endAngle, boolCouterClockWise)
     control.arc(appleX, appleY, r, 0, 2 * Math.PI, false);
+    // fill circle inside red
     control.fill();
+    // border of the circle
     control.lineWidth = 3;
     control.strokeStyle = '#FF0066';
     control.stroke();
-
-    return [appleX, appleY, appleSize, appleSize];
+    // draw green
+    control.fillStyle = 'green';
+    // half the opacity of the apple
+    control.globalAlpha = 0.5;
+    // actually draw the boundaries
+    control.fillRect(appleX-r-2, appleY-r-2, appleSize+3, appleSize+3);
+    // reset opacity for further drawing..
+    control.globalAlpha = 1;
+    // store boundaries in new array
+    return [appleX-r, appleY-r, parseInt(appleX)+r, parseInt(appleY)+r];
 }
 
 function intRandom(min, max) { // min and max included
