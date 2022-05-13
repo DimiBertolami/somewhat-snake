@@ -12,21 +12,6 @@ const appleSize = 30;
 var canvasEl = document.getElementsByTagName('canvas')[0];
 canvasEl.width = viewportHeight-appleSize;
 canvasEl.height = viewportWidth-appleSize;
-function CreateAppels(){
-    let arrAppleBoundaries = [];
-// this code generates the random apples
-    let randomApple = generateApple();
-    let randomApple2 = generateApple();
-    let randomApple3 = generateApple();
-    let randomApple4 = generateApple();
-    let randomApple5 = generateApple();
-// define all boundaries in new array with values of (x1,y1,x2,y2)
-    arrAppleBoundaries.push([randomApple[0],  randomApple[1],  randomApple[2],  randomApple[3]]);
-    arrAppleBoundaries.push([randomApple2[0], randomApple2[1], randomApple2[2], randomApple2[3]]);
-    arrAppleBoundaries.push([randomApple3[0], randomApple3[1], randomApple3[2], randomApple3[3]]);
-    arrAppleBoundaries.push([randomApple4[0], randomApple4[1], randomApple4[2], randomApple4[3]]);
-    arrAppleBoundaries.push([randomApple5[0], randomApple5[1], randomApple5[2], randomApple5[3]]);
-}
 
 
 CreateAppels();
@@ -83,7 +68,7 @@ function getPlayerLocation(){
             }
         }
     }
-    if(arrAppleBoundaries===0){
+    if(arrAppleBoundaries.length===0){
         CreateAppels()
     }
 }
@@ -152,4 +137,20 @@ function generateApple(){
 
 function intRandom(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function CreateAppels(){
+    var arrAppleBoundaries = [];
+// this code generates the random apples
+    let randomApple = generateApple();
+    let randomApple2 = generateApple();
+    let randomApple3 = generateApple();
+    let randomApple4 = generateApple();
+    let randomApple5 = generateApple();
+// define all boundaries in new array with values of (x1,y1,x2,y2)
+    arrAppleBoundaries.push([randomApple[0],  randomApple[1],  randomApple[2],  randomApple[3]]);
+    arrAppleBoundaries.push([randomApple2[0], randomApple2[1], randomApple2[2], randomApple2[3]]);
+    arrAppleBoundaries.push([randomApple3[0], randomApple3[1], randomApple3[2], randomApple3[3]]);
+    arrAppleBoundaries.push([randomApple4[0], randomApple4[1], randomApple4[2], randomApple4[3]]);
+    arrAppleBoundaries.push([randomApple5[0], randomApple5[1], randomApple5[2], randomApple5[3]]);
 }
