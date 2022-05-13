@@ -8,8 +8,8 @@ var viewportWidth = document.documentElement.clientHeight;
 const IncreaseValue = 10;
 const appleSize = 30;
 var canvasEl = document.getElementsByTagName('canvas')[0];
-canvasEl.width = viewportHeight-appleSize;
-canvasEl.height = viewportWidth-appleSize;
+canvasEl.width = viewportHeight-appleSize-appleSize;
+canvasEl.height = viewportWidth-appleSize-appleSize;
 
 // this code generates the random apples
 let randomApple = generateApple();
@@ -36,8 +36,8 @@ console.log(arrApples[0][1]);
 
 
 window.addEventListener('resize',()=>{
-    viewportWidth = document.documentElement.clientWidth-appleSize;
-    viewportHeight = document.documentElement.clientHeight-appleSize;
+    viewportWidth = document.documentElement.clientWidth-appleSize-appleSize;
+    viewportHeight = document.documentElement.clientHeight-appleSize-appleSize;
 })
 
 const player = document.getElementById("ReadyPlayerOne");
@@ -92,12 +92,12 @@ function movePlayer(x, y){
         y=7
         direction = "";
     }
-    if(x>=maxViewportHeight-appleSize-IncreaseValue){
-        x=maxViewportHeight-appleSize-IncreaseValue;
+    if(x>=maxViewportHeight-appleSize-IncreaseValue-IncreaseValue-5){
+        x=maxViewportHeight-appleSize-IncreaseValue-IncreaseValue-IncreaseValue-5;
         direction = "";
     }
-    if(y>=maxViewportWidth-appleSize-IncreaseValue){
-        y=maxViewportWidth-appleSize-IncreaseValue;
+    if(y>=maxViewportWidth-appleSize-IncreaseValue-IncreaseValue-5){
+        y=maxViewportWidth-appleSize-IncreaseValue-IncreaseValue-IncreaseValue-5;
         direction = "";
     }
     moveXY.style.left = x + "px";
@@ -109,8 +109,18 @@ function generateApple(){
     // const ctx = canvas.getContext('2d');
     let appleX = intRandom(10, 1360);
     let appleY = intRandom(10,615);
-    control.fillStyle = 'green';
-    control.fillRect(appleX, appleY, appleSize, appleSize);
+    // control.fillStyle = 'green';
+    // control.fillRect(appleX, appleY, appleSize, appleSize);
+
+    let r = 15;
+    control.fillStyle = '#FF0000';
+    control.beginPath();
+    control.arc(appleX, appleY, r, 0, 2 * Math.PI, false);
+    control.fill();
+    control.lineWidth = 3;
+    control.strokeStyle = '#FF0066';
+    control.stroke();
+
     return [appleX, appleY, appleSize, appleSize];
 }
 
