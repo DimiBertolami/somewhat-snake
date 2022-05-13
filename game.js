@@ -11,6 +11,7 @@ var canvasEl = document.getElementsByTagName('canvas')[0];
 canvasEl.width = viewportHeight-appleSize-appleSize;
 canvasEl.height = viewportWidth-appleSize-appleSize;
 
+let arrAppleBoundaries = []
 // this code generates the random apples
 let randomApple = generateApple();
 let randomApple2 = generateApple();
@@ -18,13 +19,12 @@ let randomApple3 = generateApple();
 let randomApple4 = generateApple();
 let randomApple5 = generateApple();
 // define all boundaries in new array with values of (x1,y1,x2,y2)
-let arrAppleBoundaries = [
-        [randomApple[0],  randomApple[1],  randomApple[2],  randomApple[3]],
-        [randomApple2[0], randomApple2[1], randomApple2[2], randomApple2[3]],
-        [randomApple3[0], randomApple3[1], randomApple3[2], randomApple3[3]],
-        [randomApple4[0], randomApple4[1], randomApple4[2], randomApple4[3]],
-        [randomApple5[0], randomApple5[1], randomApple5[2], randomApple5[3]]
-    ]
+arrAppleBoundaries.push(randomApple[0],  randomApple[1],  randomApple[2],  randomApple[3]);
+arrAppleBoundaries.push(randomApple2[0], randomApple2[1], randomApple2[2], randomApple2[3]);
+arrAppleBoundaries.push(randomApple3[0], randomApple3[1], randomApple3[2], randomApple3[3]);
+arrAppleBoundaries.push(randomApple4[0], randomApple4[1], randomApple4[2], randomApple4[3]);
+arrAppleBoundaries.push(randomApple5[0], randomApple5[1], randomApple5[2], randomApple5[3]);
+
 // console.log("apples is " + arrAppleBoundaries.length);
 console.log(arrAppleBoundaries);
 for (let i = 0; i < arrAppleBoundaries.length; i++) {
@@ -68,7 +68,7 @@ function main(){
         y=y-IncreaseValue;
     }
     movePlayer(x, y);
-    setTimeout(main, 1000);
+    setTimeout(main, 50);
 }
 
 main();
@@ -140,8 +140,8 @@ function generateApple(){
     // actually draw the boundaries fillRect(x, y, width plus a little extra, height plus a little extra);
     let appleRectX1 = appleX-r-3;
     let appleRectY1 = appleY-r-3;
-    let appleRectX2 = appleX-r+6;
-    let appleRectY2 = appleY-r+6;
+    let appleRectX2 = appleRectX1+appleSize+6;
+    let appleRectY2 = appleRectY1+appleSize+6;
     control.fillRect(appleRectX1, appleRectY1, appleSize+6, appleSize+6);
     // reset opacity for further drawing..
     control.globalAlpha = 1;
