@@ -1,0 +1,11 @@
+div {
+    width: 30px;
+    height: 30px;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    border: 2px solid yellow;
+    margin: 0;
+    background-color: deepskyblue;
+    position:absolute;
+}
