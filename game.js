@@ -4,36 +4,32 @@ const control = document.getElementById('canvas').getContext('2d');
 
 // var viewportWidth = 635;
 // var viewportHeight = 1385;
-var viewportHeight = document.documentElement.clientWidth;
-var viewportWidth = document.documentElement.clientHeight;
+let viewportHeight = document.documentElement.clientWidth;
+let viewportWidth = document.documentElement.clientHeight;
 
 const IncreaseValue = 10;
 const appleSize = 30;
 var canvasEl = document.getElementsByTagName('canvas')[0];
-canvasEl.width = viewportHeight-appleSize-appleSize;
-canvasEl.height = viewportWidth-appleSize-appleSize;
-
-let arrAppleBoundaries = []
+canvasEl.width = viewportHeight-appleSize;
+canvasEl.height = viewportWidth-appleSize;
+function CreateAppels(){
+    let arrAppleBoundaries = [];
 // this code generates the random apples
-let randomApple = generateApple();
-let randomApple2 = generateApple();
-let randomApple3 = generateApple();
-let randomApple4 = generateApple();
-let randomApple5 = generateApple();
+    let randomApple = generateApple();
+    let randomApple2 = generateApple();
+    let randomApple3 = generateApple();
+    let randomApple4 = generateApple();
+    let randomApple5 = generateApple();
 // define all boundaries in new array with values of (x1,y1,x2,y2)
-arrAppleBoundaries.push([randomApple[0],  randomApple[1],  randomApple[2],  randomApple[3]]);
-arrAppleBoundaries.push([randomApple2[0], randomApple2[1], randomApple2[2], randomApple2[3]]);
-arrAppleBoundaries.push([randomApple3[0], randomApple3[1], randomApple3[2], randomApple3[3]]);
-arrAppleBoundaries.push([randomApple4[0], randomApple4[1], randomApple4[2], randomApple4[3]]);
-arrAppleBoundaries.push([randomApple5[0], randomApple5[1], randomApple5[2], randomApple5[3]]);
-
-// console.log("apples is " + arrAppleBoundaries.length);
-// console.log(arrAppleBoundaries);
-// for (let i = 0; i < arrAppleBoundaries.length; i++) {
-//     console.log("apple (" + (i+1) + ") (x1,y1): (" + arrAppleBoundaries[i][0] + "," + arrAppleBoundaries[i][1] + ") (x2,y2): (" + arrAppleBoundaries[i][2] + "," + arrAppleBoundaries[i][3] + ")");
-// }
+    arrAppleBoundaries.push([randomApple[0],  randomApple[1],  randomApple[2],  randomApple[3]]);
+    arrAppleBoundaries.push([randomApple2[0], randomApple2[1], randomApple2[2], randomApple2[3]]);
+    arrAppleBoundaries.push([randomApple3[0], randomApple3[1], randomApple3[2], randomApple3[3]]);
+    arrAppleBoundaries.push([randomApple4[0], randomApple4[1], randomApple4[2], randomApple4[3]]);
+    arrAppleBoundaries.push([randomApple5[0], randomApple5[1], randomApple5[2], randomApple5[3]]);
+}
 
 
+CreateAppels();
 window.addEventListener('resize',()=>{
     viewportWidth = document.documentElement.clientWidth-appleSize-appleSize;
     viewportHeight = document.documentElement.clientHeight-appleSize-appleSize;
@@ -76,8 +72,8 @@ function main(){
 main();
 
 function getPlayerLocation(){
-    let top = player.style.top;
-    let left = player.style.left;
+    // let top = player.style.top;
+    // let left = player.style.left;
     for (let i = 0; i < arrAppleBoundaries.length; i++) {
         if(x >= arrAppleBoundaries[i][0] && x <= arrAppleBoundaries[i][2]){
             if(y >= arrAppleBoundaries[i][1] && y <= arrAppleBoundaries[i][3]){
@@ -87,7 +83,9 @@ function getPlayerLocation(){
             }
         }
     }
-    console.log(arrAppleBoundaries);
+    if(arrAppleBoundaries===0){
+        CreateAppels()
+    }
 }
 
 function movePlayer(x, y){
@@ -119,8 +117,7 @@ function movePlayer(x, y){
 }
 
 function generateApple(){
-    let rTwo = appleSize
-    let r = rTwo / 2;
+    let r = appleSize / 2;
     let appleX = intRandom(r, 1360);
     let appleY = intRandom(r,615);
 
