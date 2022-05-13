@@ -8,8 +8,8 @@ var viewportWidth = document.documentElement.clientHeight;
 const IncreaseValue = 10;
 const appleSize = 30;
 var canvasEl = document.getElementsByTagName('canvas')[0];
-canvasEl.width = viewportHeight-15;
-canvasEl.height = viewportWidth-25;
+canvasEl.width = viewportHeight;
+canvasEl.height = viewportWidth;
 
 // this code generates the random apples
 let randomApple = generateApple();
@@ -36,8 +36,8 @@ console.log(arrApples[0][1]);
 
 
 window.addEventListener('resize',()=>{
-    viewportWidth = document.documentElement.clientWidth-15;
-    viewportHeight = document.documentElement.clientHeight-25;
+    viewportWidth = document.documentElement.clientWidth;
+    viewportHeight = document.documentElement.clientHeight;
 })
 
 const player = document.getElementById("ReadyPlayerOne");
@@ -79,7 +79,7 @@ main();
 function movePlayer(x, y){
     // console.log(viewportHeight);
     // console.log(viewportWidth);
-    let maxViewportHeight = viewportHeight-50;
+    let maxViewportHeight = viewportHeight-60;
     let maxViewportWidth = viewportWidth-45;
     let moveXY = document.getElementById("ReadyPlayerOne");
     // console.log("x: " + x + " y: " + y);
