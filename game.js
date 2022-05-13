@@ -6,7 +6,16 @@ canvas.height = r.height;
 
 context.fillStyle = "red";
 context.fillRect(0, 0, canvas.width, canvas.height);
-
+/*----GetWindowSizeNoScrollBarrs--START-------*/
+//Get inner width and height of current window
+var viewportWidth = document.documentElement.clientWidth;
+var viewportHeight = document.documentElement.clientHeight;
+//Update values if window is resized
+window.addEventListener('resize',()=>{
+    viewportWidth = document.documentElement.clientWidth;
+    viewportWidth = document.documentElement.clientHeight;
+})
+/*----GetWindowSizeNoScrollBarrs--FINISH-------*/
 const player = document.getElementById("ReadyPlayerOne");
 let x = 300;
 let y= 300;
@@ -55,12 +64,12 @@ function movePlayer(x, y){
         y=7
         direction = "";
     }
-    if(x>=1336){
-        x=1336
+    if(x>=viewportHeight){
+        x=viewportHeight;
         direction = "";
     }
-    if(y>=588){
-        y=588
+    if(y>=viewportWidth){
+        y=viewportWidth;
         direction = "";
     }
     moveXY.style.left = x + "px";
