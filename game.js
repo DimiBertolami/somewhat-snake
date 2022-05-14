@@ -90,7 +90,7 @@ function movePlayer(x, y){
     }
 // define all boundaries in new array with values of (x1,y1,x2,y2)
 //     if(arrAppleBoundaries.isArray()){
-        if(arrAppleBoundaries.length===0){
+        if(arrAppleBoundaries.length<=2){
             // this code generates the random apples
             arrAppleBoundaries.push(generateApple());
             arrAppleBoundaries.push(generateApple());
@@ -107,7 +107,7 @@ function movePlayer(x, y){
                 //grow snake grow! for now console log what you want to do little snake.
                 // control.beginPath();
                 control.clearRect(arrAppleBoundaries[i][0], arrAppleBoundaries[i][1], arrAppleBoundaries[i][2], arrAppleBoundaries[i][3]);
-                arrAppleBoundaries.splice(i);
+                arrAppleBoundaries.splice(i, 1);
             }
         }
     }
