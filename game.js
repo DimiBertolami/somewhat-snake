@@ -9,7 +9,7 @@ let viewportWidth = document.documentElement.clientHeight;
 
 // TimeoutValue sets the refreshrate, now it's set to 10 times per second (milliseconds)
 const timeoutValue = 100;
-const IncreaseValue = 30;
+const IncreaseValue = 5;
 const appleSize = 30;
 const canvasEl = document.getElementsByTagName('canvas')[0];
 canvasEl.width = viewportHeight-appleSize;
@@ -38,13 +38,8 @@ document.body.addEventListener("keyup", function(event){
 
 let arrAppleBoundaries = [];
 // this code generates the random apples
-arrAppleBoundaries.push(generateApple());
-arrAppleBoundaries.push(generateApple());
-arrAppleBoundaries.push(generateApple());
-arrAppleBoundaries.push(generateApple());
-arrAppleBoundaries.push(generateApple());
-
-
+for (let i = 0; i < 30; i++) {arrAppleBoundaries.push(generateApple());}
+let arrApplesEaten = [];
 function main(){
     if(direction === 'ArrowRight'){
         // x++;
@@ -60,9 +55,15 @@ function main(){
         y=y-IncreaseValue;
     }
     movePlayer(x, y);
-    setTimeout(main, timeoutValue);      //
+    setTimeout(main, timeoutValue);
+    if(direction !== ''){
+        console.log("aples eaten: ");
+        console.log(arrApplesEaten);
+        console.log("Direction: " + direction);
+    }
 }
 
+console.clear();
 main();
 
 function movePlayer(x, y){
@@ -70,8 +71,6 @@ function movePlayer(x, y){
     let maxViewportHeight = viewportHeight-appleSize-IncreaseValue;
     let maxViewportWidth = viewportWidth-appleSize-IncreaseValue;
     let moveXY = document.getElementById("ReadyPlayerOne");
-    // console.log("x: " + x + " y: " + y);
-    // console.log("direction: " + direction);
     if(x<=7){
         x=7
         direction = "";
@@ -91,21 +90,19 @@ function movePlayer(x, y){
 // define all boundaries in new array with values of (x1,y1,x2,y2)
 //     if(arrAppleBoundaries.isArray()){
         if(arrAppleBoundaries.length<=2){
-            // this code generates the random apples
+            // this code generates the extra random apples
             arrAppleBoundaries.push(generateApple());
             arrAppleBoundaries.push(generateApple());
             arrAppleBoundaries.push(generateApple());
-            console.log(arrAppleBoundaries);
         }
     for (let i = 0; i < arrAppleBoundaries.length; i++) {
         if(x >= arrAppleBoundaries[i][0] && x <= arrAppleBoundaries[i][2]){
             if(y >= arrAppleBoundaries[i][1] && y <= arrAppleBoundaries[i][3]){
                 //grow snake grow! for now console log what you want to do little snake.
                 control.beginPath();
+                arrApplesEaten.push(arrAppleBoundaries[i]);
                 control.clearRect(arrAppleBoundaries[i][0], arrAppleBoundaries[i][1], appleSize+6, appleSize+6);
                 arrAppleBoundaries.splice(i, 1);
-                console.log("array after delete: ");
-                console.log(arrAppleBoundaries);
             }
         }
     }
@@ -119,7 +116,7 @@ function generateApple(){
     let r = appleSize / 2;
     let appleX = intRandom(r, 1360);
     let appleY = intRandom(r,615);
-    console.log("apple random generated (x,y): (" + appleX + "," + appleY + ")");
+    // console.log("apple random generated (x,y): (" + appleX + "," + appleY + ")");
     // inside color of the apple (red)
     control.fillStyle = '#FF0000';
     // begin drawing

@@ -4,10 +4,10 @@ div {
     top: 20px;
     left: 20px;
     padding: 10px;
-    border: 2px solid darkslateblue;
+    /*border: 2px solid darkslateblue;*/
     margin: 0;
-    background-color: darkblue;
-    opacity: 50%;
+    /*background-color: darkblue;*/
+    /*opacity: 50%;*/
     position:absolute;
 }
 canvas{
