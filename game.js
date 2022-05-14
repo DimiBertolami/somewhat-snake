@@ -80,12 +80,12 @@ function movePlayer(x, y){
         y=7
         direction = "";
     }
-    if(x>=maxViewportHeight-appleSize-IncreaseValue-IncreaseValue-5){
-        x=maxViewportHeight-appleSize-IncreaseValue-IncreaseValue-IncreaseValue-5;
+    if(x>=maxViewportHeight-5){
+        x=maxViewportHeight-5;
         direction = "";
     }
-    if(y>=maxViewportWidth-appleSize-IncreaseValue-IncreaseValue-5){
-        y=maxViewportWidth-appleSize-IncreaseValue-IncreaseValue-IncreaseValue-5;
+    if(y>=maxViewportWidth-5){
+        y=maxViewportWidth-5;
         direction = "";
     }
 // define all boundaries in new array with values of (x1,y1,x2,y2)
@@ -95,19 +95,17 @@ function movePlayer(x, y){
             arrAppleBoundaries.push(generateApple());
             arrAppleBoundaries.push(generateApple());
             arrAppleBoundaries.push(generateApple());
-            arrAppleBoundaries.push(generateApple());
-            arrAppleBoundaries.push(generateApple());
             console.log(arrAppleBoundaries);
-        } else {
-            console.log("apples still on canvas: " + arrAppleBoundaries.length)
         }
     for (let i = 0; i < arrAppleBoundaries.length; i++) {
         if(x >= arrAppleBoundaries[i][0] && x <= arrAppleBoundaries[i][2]){
             if(y >= arrAppleBoundaries[i][1] && y <= arrAppleBoundaries[i][3]){
                 //grow snake grow! for now console log what you want to do little snake.
-                // control.beginPath();
-                control.clearRect(arrAppleBoundaries[i][0], arrAppleBoundaries[i][1], arrAppleBoundaries[i][2], arrAppleBoundaries[i][3]);
+                control.beginPath();
+                control.clearRect(arrAppleBoundaries[i][0], arrAppleBoundaries[i][1], appleSize+6, appleSize+6);
                 arrAppleBoundaries.splice(i, 1);
+                console.log("array after delete: ");
+                console.log(arrAppleBoundaries);
             }
         }
     }
@@ -121,7 +119,7 @@ function generateApple(){
     let r = appleSize / 2;
     let appleX = intRandom(r, 1360);
     let appleY = intRandom(r,615);
-
+    console.log("apple random generated (x,y): (" + appleX + "," + appleY + ")");
     // inside color of the apple (red)
     control.fillStyle = '#FF0000';
     // begin drawing
@@ -137,14 +135,15 @@ function generateApple(){
     control.stroke();
     // draw green
     control.fillStyle = "green";
-    // almost half of the total opacity
-    control.globalAlpha = 0.4;
+    // 1/3rd opacity
+    control.globalAlpha = 0.3;
     // draw the boundaries using rectangular overlay (to have "overlap-coordinates")
     //        fillRect(x, y, width plus a little extra, height plus a little extra);
     let appleRectX1 = appleX-r-3;
     let appleRectY1 = appleY-r-3;
     let appleRectX2 = parseInt(appleRectX1) + appleSize + 6;
     let appleRectY2 = parseInt(appleRectY1) + appleSize + 6;
+    control.beginPath();
     control.fillRect(appleRectX1, appleRectY1, appleSize+6, appleSize+6);
     // reset opacity for further drawing..
     control.globalAlpha = 1;
