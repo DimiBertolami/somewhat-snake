@@ -11,6 +11,7 @@ let viewportWidth = document.documentElement.clientHeight;
 const timeoutValue = 100;
 const IncreaseValue = 5;
 const appleSize = 30;
+const initialSnakes = 100;
 const canvasEl = document.getElementsByTagName('canvas')[0];
 canvasEl.width = viewportHeight-appleSize;
 canvasEl.height = viewportWidth-appleSize;
@@ -38,7 +39,7 @@ document.body.addEventListener("keyup", function(event){
 
 let arrAppleBoundaries = [];
 // this code generates the random apples
-for (let i = 0; i < 30; i++) {arrAppleBoundaries.push(generateApple());}
+for (let i = 0; i < initialSnakes; i++) {arrAppleBoundaries.push(generateApple());}
 let arrApplesEaten = [];
 function main(){
     if(direction === 'ArrowRight'){
@@ -113,7 +114,7 @@ function movePlayer(x, y){
 }
 
 function generateApple(){
-    let r = appleSize / 2;
+    let r = appleSize / 5;
     let appleX = intRandom(r, 1360);
     let appleY = intRandom(r,615);
     // console.log("apple random generated (x,y): (" + appleX + "," + appleY + ")");
@@ -133,7 +134,7 @@ function generateApple(){
     // draw green
     control.fillStyle = "green";
     // 1/3rd opacity
-    control.globalAlpha = 0.3;
+    control.globalAlpha = 0.1;
     // draw the boundaries using rectangular overlay (to have "overlap-coordinates")
     //        fillRect(x, y, width plus a little extra, height plus a little extra);
     let appleRectX1 = appleX-r-3;
