@@ -10,8 +10,8 @@ let viewportWidth = document.documentElement.clientHeight;
 // TimeoutValue sets the refreshrate, now it's set to 10 times per second (milliseconds)
 const timeoutValue = 100;
 const IncreaseValue = 5;
-const appleSize = 30;
-const initialSnakes = 100;
+const appleSize = 40;
+const initialSnakes = 3;
 const canvasEl = document.getElementsByTagName('canvas')[0];
 canvasEl.width = viewportHeight-appleSize;
 canvasEl.height = viewportWidth-appleSize;
@@ -56,6 +56,7 @@ function main(){
         y=y-IncreaseValue;
     }
     movePlayer(x, y);
+    moveApples();
     setTimeout(main, timeoutValue);
     if(direction !== ''){
         console.log("aples eaten: ");
@@ -66,7 +67,9 @@ function main(){
 
 console.clear();
 main();
+function moveApples(){
 
+}
 function movePlayer(x, y){
     // console.log(viewportHeight);
     let maxViewportHeight = viewportHeight-appleSize-IncreaseValue;
@@ -132,9 +135,9 @@ function generateApple(){
     control.strokeStyle = '#FF0066';
     control.stroke();
     // draw green
-    control.fillStyle = "green";
+    // control.fillStyle = "green";
     // 1/3rd opacity
-    control.globalAlpha = 0.1;
+    // control.globalAlpha = 0.1;
     // draw the boundaries using rectangular overlay (to have "overlap-coordinates")
     //        fillRect(x, y, width plus a little extra, height plus a little extra);
     let appleRectX1 = appleX-r-3;
