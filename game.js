@@ -1,6 +1,11 @@
 
 // const player = document.getElementById("ReadyPlayerOne");
 const control = document.getElementById('canvas').getContext('2d');
+const ReadyPlayerOne = document.getElementById('ReadyPlayerOne');
+const ghost1 = document.getElementById('ghost1');
+const ghost2 = document.getElementById('ghost2');
+const ghost3 = document.getElementById('ghost3');
+const ghost4 = document.getElementById('ghost4');
 
 // var viewportWidth = 635;
 // var viewportHeight = 1385;
@@ -8,10 +13,10 @@ let viewportHeight = document.documentElement.clientWidth;
 let viewportWidth = document.documentElement.clientHeight;
 
 // TimeoutValue sets the refreshrate, now it's set to 10 times per second (milliseconds)
-const timeoutValue = 100;
-const IncreaseValue = 5;
-const appleSize = 40;
-const initialSnakes = 3;
+const timeoutValue = 40;
+const IncreaseValue = 10;
+const appleSize = 30;
+const initialSnakes = 50;
 const canvasEl = document.getElementsByTagName('canvas')[0];
 canvasEl.width = viewportHeight-appleSize;
 canvasEl.height = viewportWidth-appleSize;
@@ -56,18 +61,37 @@ function main(){
         y=y-IncreaseValue;
     }
     movePlayer(x, y);
-    moveApples();
+    moveGhosts(x, y);
     setTimeout(main, timeoutValue);
     if(direction !== ''){
-        console.log("aples eaten: ");
-        console.log(arrApplesEaten);
-        console.log("Direction: " + direction);
+        // console.log("aples eaten: ");
+        // console.log(arrApplesEaten);
+        // console.log("Direction: " + direction);
     }
 }
 
-console.clear();
+// console.clear();
 main();
-function moveApples(){
+
+function moveGhosts(x, y){
+
+    let left = ReadyPlayerOne.style.left;
+    let top = ReadyPlayerOne.style.top;
+    let rp1BoundingRect = ReadyPlayerOne.getBoundingClientRect()
+    console.log(rp1BoundingRect.left);
+    console.log(rp1BoundingRect.top);
+    console.log(rp1BoundingRect.bottom);
+    console.log(rp1BoundingRect.right);
+    ghost1.style.top = top;
+    ghost1.style.left = left;
+    ghost2.style.top = top;
+    ghost2.style.left = left;
+    ghost3.style.top = top;
+    ghost3.style.left = left;
+    ghost4.style.top = top;
+    ghost4.style.left = left;
+
+    setTimeout(moveGhosts, 3000);
 
 }
 function movePlayer(x, y){
@@ -117,7 +141,7 @@ function movePlayer(x, y){
 }
 
 function generateApple(){
-    let r = appleSize / 5;
+    let r = appleSize/2;
     let appleX = intRandom(r, 1360);
     let appleY = intRandom(r,615);
     // console.log("apple random generated (x,y): (" + appleX + "," + appleY + ")");
@@ -135,17 +159,17 @@ function generateApple(){
     control.strokeStyle = '#FF0066';
     control.stroke();
     // draw green
-    // control.fillStyle = "green";
+    control.fillStyle = "green";
     // 1/3rd opacity
-    // control.globalAlpha = 0.1;
+    control.globalAlpha = 0.1;
     // draw the boundaries using rectangular overlay (to have "overlap-coordinates")
     //        fillRect(x, y, width plus a little extra, height plus a little extra);
     let appleRectX1 = appleX-r-3;
     let appleRectY1 = appleY-r-3;
     let appleRectX2 = parseInt(appleRectX1) + appleSize + 6;
     let appleRectY2 = parseInt(appleRectY1) + appleSize + 6;
-    control.beginPath();
-    control.fillRect(appleRectX1, appleRectY1, appleSize+6, appleSize+6);
+    // control.beginPath();
+    // control.fillRect(appleRectX1, appleRectY1, appleSize+6, appleSize+6);
     // reset opacity for further drawing..
     control.globalAlpha = 1;
     // store boundaries in new array  (x1,y1,x2,y2)

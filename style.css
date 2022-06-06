@@ -15,3 +15,38 @@ canvas{
     /*width: 1380;*/
     /*height: 630;*/
 }
+#ReadyPlayerOne{
+    background-color: purple;
+    top: 900px;
+    left: 600px;
+    position:absolute;
+    border-radius: 50%;
+}
+#ghost1{
+    top:100px;
+    left:100px;
+    background-color: orange;
+    transition: 4s linear;
+    position:absolute;
+}
+#ghost2{
+    top:180px;
+    left:180px;
+    background-color: springgreen;
+    transition: 5s linear;
+    position:absolute;
+}
+#ghost3{
+    top:240px;
+    left:240px;
+    background-color: lightblue;
+    transition: 3s linear;
+    position:absolute;
+}
+#ghost4{
+    top:400px;
+    left:400px;
+    background-color: blue;
+    transition: 5s linear;
+    position:absolute;
+}
