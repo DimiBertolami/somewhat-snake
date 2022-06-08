@@ -17,6 +17,8 @@ canvas{
 }
 #ReadyPlayerOne{
     background-color: purple;
+    color: yellow;
+    font-size: xx-large;
     /*top: 900px;*/
     /*left: 600px;*/
     position:absolute;
@@ -27,7 +29,7 @@ canvas{
     left:100px;
     border-radius: 20%;
     background-color: orange;
-    transition: 4s linear;
+    transition: 2s linear;
     position:absolute;
     opacity: 10%;
 
@@ -38,7 +40,7 @@ canvas{
     border-radius: 50%;
     border: 1px solid orangered;
     background-color: springgreen;
-    transition: 5s linear;
+    transition: 4s linear;
     position:absolute;
     opacity: 10%;
 }
@@ -47,7 +49,7 @@ canvas{
     left:240px;
     border-radius: 50%;
     background-color: lightblue;
-    transition: 3s linear;
+    transition: 6s linear;
     position:absolute;
     opacity: 10%;
 }
@@ -56,7 +58,7 @@ canvas{
     left:400px;
     border-radius: 50%;
     background-color: blue;
-    transition: 5s linear;
+    transition: 8s linear;
     position:absolute;
     opacity: 10%;
 }
