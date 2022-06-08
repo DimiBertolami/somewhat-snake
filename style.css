@@ -62,3 +62,8 @@ canvas{
     position:absolute;
     opacity: 10%;
 }
+h1{
+    font-size: xxx-large;
+    font-weight: bolder;
+    color: mediumvioletred;
+}

@@ -5,6 +5,7 @@ const ghost2 = document.getElementById('ghost2');
 const ghost3 = document.getElementById('ghost3');
 const ghost4 = document.getElementById('ghost4');
 const canvasEl = document.getElementsByTagName('canvas')[0];
+const script = document.getElementsByTagName('script')[0];
 count = 0;
 
 // refreshrate in milliseconds
@@ -80,10 +81,6 @@ function movePlayer(x, y) {
         for (let i = 0; i < initialApples; i++) {
             arrAppleBoundaries.push(generateApple());
         }
-        generate('ghost1');
-        generate('ghost2');
-        generate('ghost3');
-        generate('ghost4');
     }
     // when snake eats apple, it removes the apple from the array, and it updates the player counter
     for (let i = 0; i < arrAppleBoundaries.length; i++) {
@@ -100,48 +97,57 @@ function movePlayer(x, y) {
             }
         }
     }
-    // requestAnimationFrame(main);
-    ReadyPlayerOne.style.left = x + "px";
+
     ReadyPlayerOne.style.top = y + "px";
+    ReadyPlayerOne.style.left = x + "px";
 
 }
 
 function moveGhosts(x, y) {
     x = ReadyPlayerOne.left;
     y = ReadyPlayerOne.top;
-    if (updateCount(ghost1)) {
-        ReadyPlayerOne.style.left = randomX+'px';
-        ReadyPlayerOne.style.top = randomY+'px';
-        ghost1.remove()
-    } else {/* game over*/
+    if (updateCount(ghost1) || updateCount(ghost2) || updateCount(ghost3) || updateCount(ghost4)) {
+        control.beginPath();
+        console.log(ReadyPlayerOne.childNodes[0]);
+        if (ReadyPlayerOne.childNodes[0].textContent === '0') {
+            ReadyPlayerOne.remove();
+            alert(`GAME OVER`);
+        } else {
+            ReadyPlayerOne.left = randomX + 'px';
+            ReadyPlayerOne.top = randomY + 'px';
+            // ghost1.remove();
+            // generate('ghost1');
+        }
     }
-    if (updateCount(ghost2)) {
-        // updateGhost(ghost2);
-        // ghost2.style.left = randomX+'px';
-        // ghost2.style.top = randomY+'px';
-        ghost2.remove()
-    }
-    if (updateCount(ghost3)) {
-        // updateGhost(ghost3);
-        // ghost3.style.left = randomX+'px';
-        // ghost3.style.top = randomY+'px';
-        ghost3.remove()
-    }
-    if (updateCount(ghost4)) {
-        // updateGhost(ghost4);
-        // ghost4.style.left = randomX+'px';
-        // ghost4.style.top = randomY+'px';
-        ghost4.remove()
-    }
+    // if (updateCount(ghost2)) {
+    //     // updateGhost(ghost2);
+    //     ReadyPlayerOne.left = randomX+'px';
+    //     ReadyPlayerOne.top = randomY+'px';
+    //     ghost2.remove()
+    //     generate('ghost2');
+    // }
+    // if (updateCount(ghost3)) {
+    //     // updateGhost(ghost3);
+    //     ReadyPlayerOne.left = randomX+'px';
+    //     ReadyPlayerOne.top = randomY+'px';
+    //     ghost3.remove()
+    //     generate('ghost3');
+    // }
+    // if (updateCount(ghost4)) {
+    //     // updateGhost(ghost4);
+    //     ReadyPlayerOne.left = randomX+'px';
+    //     ReadyPlayerOne.top = randomY+'px';
+    //     ghost4.remove()
+    //     generate('ghost4');
+    // }
 }
 function generate(ghost = ''){
-    control.beginPath();
     let ghostEl = document.createElement('div');
     ghostEl.className = 'box';
     ghostEl.id = ghost;
     ghostEl.style.top = intRandom(20, 560)+'px';
     ghostEl.style.left = intRandom(20, 1200)+'px';
-    document.body.appendChild(ghostEl);
+    ReadyPlayerOne.parentNode.insertBefore(document.body.appendChild(ghostEl), ReadyPlayerOne.nextSibling)
 }
 function getBounds(obj, bShow = true) {
     let PlayerBoundaries = ReadyPlayerOne.getBoundingClientRect();
