@@ -15,18 +15,18 @@ let viewportWidth = document.documentElement.clientHeight;
 // TimeoutValue sets the refreshrate, now it's set to 10 times per second (milliseconds)
 const timeoutValue = 40;
 const IncreaseValue = 10;
-const appleSize = 30;
-const initialSnakes = 50;
+const appleSize = 50;
+const initialApples = 50;
 const canvasEl = document.getElementsByTagName('canvas')[0];
 canvasEl.width = viewportHeight-appleSize;
 canvasEl.height = viewportWidth-appleSize;
 
 
 
-window.addEventListener('resize',()=>{
-    viewportWidth = document.documentElement.clientWidth-appleSize-appleSize;
-    viewportHeight = document.documentElement.clientHeight-appleSize-appleSize;
-})
+// window.addEventListener('resize',()=>{
+//     viewportWidth = document.documentElement.clientWidth-appleSize-appleSize;
+//     viewportHeight = document.documentElement.clientHeight-appleSize-appleSize;
+// })
 
 let x = viewportHeight/2;
 let y= viewportWidth/2;
@@ -44,9 +44,15 @@ document.body.addEventListener("keyup", function(event){
 
 let arrAppleBoundaries = [];
 // this code generates the random apples
-for (let i = 0; i < initialSnakes; i++) {arrAppleBoundaries.push(generateApple());}
+for (let i = 0; i < initialApples; i++) {arrAppleBoundaries.push(generateApple());}
 let arrApplesEaten = [];
+
+
+// console.clear();
+main();
+
 function main(){
+
     if(direction === 'ArrowRight'){
         // x++;
         x= x+IncreaseValue;
@@ -69,51 +75,68 @@ function main(){
         // console.log("Direction: " + direction);
     }
 }
-
-// console.clear();
-main();
-
 function moveGhosts(x, y){
-
-    let left = ReadyPlayerOne.style.left;
-    let top = ReadyPlayerOne.style.top;
+    // requestAnimationFrame(moveGhosts);
+    let rP1left = ReadyPlayerOne.style.left;
+    let rP1top = ReadyPlayerOne.style.top;
+    // alert(rP1top);
     let rp1BoundingRect = ReadyPlayerOne.getBoundingClientRect()
-    console.log(rp1BoundingRect.left);
-    console.log(rp1BoundingRect.top);
-    console.log(rp1BoundingRect.bottom);
-    console.log(rp1BoundingRect.right);
-    ghost1.style.top = top;
-    ghost1.style.left = left;
-    ghost2.style.top = top;
-    ghost2.style.left = left;
-    ghost3.style.top = top;
-    ghost3.style.left = left;
-    ghost4.style.top = top;
-    ghost4.style.left = left;
+    if(rp1BoundingRect.left === ghost1.style.left || rp1BoundingRect.left === ghost2.style.left || rp1BoundingRect.left === ghost3.style.left || rp1BoundingRect.left === ghost4.style.left){
+        if(rp1BoundingRect.top === ghost1.style.top || rp1BoundingRect.top === ghost2.style.top || rp1BoundingRect.top === ghost3.style.top || rp1BoundingRect.top === ghost4.style.top){
+            // ghost1.style.width = ghost1.style.width+ghost1.style.width;
+            // ghost1.remove();
+            // control.beginPath();
+            ghost1.style.top = y + 'px';
+            ghost1.style.left = x + 'px';
+            ghost2.style.top = y + 'px';
+            ghost2.style.left = x + 'px';
+            ghost3.style.top = y + 'px';
+            ghost3.style.left = x + 'px';
+            ghost4.style.top = y + 'px';
+            ghost4.style.left = x + 'px';
+            // ghost1.hidden = true;
+            // ghost2.hidden = true;
+            // ghost3.hidden = true;
+            // ghost4.hidden = true;
+            console.log(`left boundary: ${rp1BoundingRect.left} - left ReadyPlayerOne: ${rP1left}`);
+            console.log(`top boundary: ${rp1BoundingRect.top} - top ReadyPlayerOne: ${rP1top}`);
+            console.log('------------------------')
+        }
+    } else {
+            // control.beginPath();
+        ghost1.style.top = y + 'px';
+        ghost1.style.left = x + 'px';
+        ghost2.style.top = y + 'px';
+        ghost2.style.left = x + 'px';
+        ghost3.style.top = y + 'px';
+        ghost3.style.left = x + 'px';
+        ghost4.style.top = y + 'px';
+        ghost4.style.left = x + 'px';
+    }
 
-    setTimeout(moveGhosts, 3000);
-
+    // setTimeout(moveGhosts, 2000);
 }
 function movePlayer(x, y){
+    // requestAnimationFrame(main);
     // console.log(viewportHeight);
     let maxViewportHeight = viewportHeight-appleSize-IncreaseValue;
     let maxViewportWidth = viewportWidth-appleSize-IncreaseValue;
     let moveXY = document.getElementById("ReadyPlayerOne");
     if(x<=7){
         x=7
-        direction = "";
+        // direction = "";
     }
     if(y<=7){
         y=7
-        direction = "";
+        // direction = "";
     }
     if(x>=maxViewportHeight-5){
         x=maxViewportHeight-5;
-        direction = "";
+        // direction = "";
     }
     if(y>=maxViewportWidth-5){
         y=maxViewportWidth-5;
-        direction = "";
+        // direction = "";
     }
 // define all boundaries in new array with values of (x1,y1,x2,y2)
 //     if(arrAppleBoundaries.isArray()){
@@ -136,17 +159,18 @@ function movePlayer(x, y){
     }
 
     // }
-    moveXY.style.left = x + "px";
-    moveXY.style.top  = y + "px";
+    ReadyPlayerOne.style.left = x + "px";
+    ReadyPlayerOne.style.top  = y + "px";
+    console.log(arrAppleBoundaries);
 }
-
 function generateApple(){
+    // requestAnimationFrame(generateApple);
     let r = appleSize/2;
     let appleX = intRandom(r, 1360);
     let appleY = intRandom(r,615);
     // console.log("apple random generated (x,y): (" + appleX + "," + appleY + ")");
     // inside color of the apple (red)
-    control.fillStyle = '#FF0000';
+    control.fillStyle = 'green';
     // begin drawing
     control.beginPath();
     // circle (x, y, startAngle = 0, endAngle, boolCounterClockWise)
@@ -156,7 +180,7 @@ function generateApple(){
     // border of the circle
     control.lineWidth = 3;
     // not red but close
-    control.strokeStyle = '#FF0066';
+    control.strokeStyle = 'yellow';
     control.stroke();
     // draw green
     control.fillStyle = "green";
@@ -168,14 +192,13 @@ function generateApple(){
     let appleRectY1 = appleY-r-3;
     let appleRectX2 = parseInt(appleRectX1) + appleSize + 6;
     let appleRectY2 = parseInt(appleRectY1) + appleSize + 6;
-    // control.beginPath();
-    // control.fillRect(appleRectX1, appleRectY1, appleSize+6, appleSize+6);
+    control.beginPath();
+    control.fillRect(appleRectX1+3, appleRectY1+3, appleSize, appleSize);
     // reset opacity for further drawing..
     control.globalAlpha = 1;
     // store boundaries in new array  (x1,y1,x2,y2)
     return [appleRectX1, appleRectY1, appleRectX2, appleRectY2];
 }
-
 function intRandom(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
