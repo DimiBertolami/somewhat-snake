@@ -10,12 +10,16 @@ count = 0;
 
 // refreshrate in milliseconds
 const timeoutValue = 50;
-const ghostTimeout = 500;
+const ghostTimeout = 5000;
 const IncreaseValue = 10;
 const appleSize = 50;
 const initialApples = 3;
 let arrAppleBoundaries = [];
 let arrApplesEaten = [];
+let arrGhostText = [];
+let arrGhosts = []
+arrGhosts.push(ghost1, ghost2, ghost3, ghost4);
+arrGhostText.push("ghost1", "ghost2", "ghost3", "ghost4");
 let direction;
 const randomX = intRandom(20, 1200);
 const randomY = intRandom(20, 500);
@@ -36,6 +40,7 @@ for (let i = 0; i < initialApples; i++) {
 }
 
 // setTimeout(updateGhosts, ghostTimeout);
+
 main();
 
 function main() {
@@ -56,7 +61,13 @@ function main() {
     moveGhosts(x, y);
     setTimeout(main, timeoutValue);
 }
-
+function randomGhostStuff(){
+    console.log('hi');
+    ghost1.style.transition = `${intRandom(2,6)}s linear`;
+    ghost2.style.transition = `${intRandom(2,6)}s linear`;
+    ghost3.style.transition = `${intRandom(2,6)}s linear`;
+    ghost4.style.transition = `${intRandom(2,6)}s linear`;
+}
 function movePlayer(x, y) {
     getBounds(ReadyPlayerOne, false);
 
@@ -104,42 +115,25 @@ function movePlayer(x, y) {
 }
 
 function moveGhosts(x, y) {
-    x = ReadyPlayerOne.left;
-    y = ReadyPlayerOne.top;
-    if (updateCount(ghost1) || updateCount(ghost2) || updateCount(ghost3) || updateCount(ghost4)) {
-        control.beginPath();
-        console.log(ReadyPlayerOne.childNodes[0]);
-        if (ReadyPlayerOne.childNodes[0].textContent === '0') {
-            ReadyPlayerOne.remove();
-            alert(`GAME OVER`);
-        } else {
-            ReadyPlayerOne.left = randomX + 'px';
-            ReadyPlayerOne.top = randomY + 'px';
-            // ghost1.remove();
-            // generate('ghost1');
+    x = intRandom(20, 1500) + 'px';
+    y = intRandom(20, 500) + 'px';
+    for (let i = 0; i < arrGhosts.length; i++) {
+        if (updateCount(arrGhosts[i])) {
+            control.beginPath();
+            console.log(ReadyPlayerOne.childNodes[0]);
+            if (ReadyPlayerOne.childNodes[0].textContent === '0') {
+                ReadyPlayerOne.remove();
+                alert(`GAME OVER`);
+            } else {
+                ReadyPlayerOne.style.left = x + 'px';
+                ReadyPlayerOne.style.top = y + 'px';
+                direction = '';
+                arrGhosts[i].remove();
+                generate(`${arrGhostText[i]}`);
+            }
         }
+        setTimeout(randomGhostStuff, ghostTimeout);
     }
-    // if (updateCount(ghost2)) {
-    //     // updateGhost(ghost2);
-    //     ReadyPlayerOne.left = randomX+'px';
-    //     ReadyPlayerOne.top = randomY+'px';
-    //     ghost2.remove()
-    //     generate('ghost2');
-    // }
-    // if (updateCount(ghost3)) {
-    //     // updateGhost(ghost3);
-    //     ReadyPlayerOne.left = randomX+'px';
-    //     ReadyPlayerOne.top = randomY+'px';
-    //     ghost3.remove()
-    //     generate('ghost3');
-    // }
-    // if (updateCount(ghost4)) {
-    //     // updateGhost(ghost4);
-    //     ReadyPlayerOne.left = randomX+'px';
-    //     ReadyPlayerOne.top = randomY+'px';
-    //     ghost4.remove()
-    //     generate('ghost4');
-    // }
 }
 function generate(ghost = ''){
     let ghostEl = document.createElement('div');
