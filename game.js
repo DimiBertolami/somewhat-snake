@@ -34,15 +34,139 @@ maxViewportWidth = viewportHeight - appleSize - IncreaseValue;
 canvasEl.width = viewportWidth - appleSize;
 canvasEl.height = viewportHeight - appleSize;
 ReadyPlayerOne.appendChild(document.createTextNode(`0`));
+ghost1.appendChild(document.createTextNode(`GET OVER HERE`));
+ghost2.appendChild(document.createTextNode(`IMA GONNA CATCH YOUOUOUOU`));
+ghost3.appendChild(document.createTextNode(`WHERE YOU GOIN?`));
+ghost4.appendChild(document.createTextNode(`I'M NOT GONNA HURT YOU`));
 // this code generates the random apples
 for (let i = 0; i < initialApples; i++) {
     arrAppleBoundaries.push(generateApple());
 }
 
-// setTimeout(updateGhosts, ghostTimeout);
 
 main();
 
+function randomGhostStuff(action= 'speed'){
+    switch (action){
+        case 'speed':
+            //ghost speed is variable now!
+            ghost1.style.transition = `${intRandom(1,4)}s linear`;
+            ghost2.style.transition = `${intRandom(1,4)}s linear`;
+            ghost3.style.transition = `${intRandom(1,4)}s linear`;
+            ghost4.style.transition = `${intRandom(1,4)}s linear`;
+            break;
+        case 'shout':
+            //ghosts should talk when chasing you..
+            ghost1.removeChild(ghost1.childNodes[0]);
+            ghost2.removeChild(ghost2.childNodes[0]);
+            ghost3.removeChild(ghost3.childNodes[0]);
+            ghost4.removeChild(ghost4.childNodes[0]);
+            ghost1.appendChild(document.createTextNode(`IMA ALFA GHOST!`));
+            ghost2.appendChild(document.createTextNode(`IMA GONNA CATCH YOUOUOUOU`));
+            ghost3.appendChild(document.createTextNode(`STOP RUNNING`));
+            ghost4.appendChild(document.createTextNode(`BOEOEOEOE`));
+            break;
+    }
+    console.log(`random ${action} configured`);
+}
+//Variable Ghost Speed returns promise after 2 seconds
+const first_function = function() {
+    console.log("Entered first function," + "Variable Ghost Speed");
+    return new Promise(resolve => {
+        setTimeout(function() {
+            resolve("\t\t This is first promise");
+            randomGhostStuff(); //action = 'speed'
+            console.log("Returned first promise from variable ghost speed function");
+        }, 2000);
+    });
+};
+//Variable Ghost Shouts returns promise after 4 seconds
+const second_function = function() {
+    console.log("Entered second function," + "Variable Ghost Shouts!");
+    return new Promise(resolve => {
+        setTimeout(function() {
+            resolve("\t\t This is second promise");
+            randomGhostStuff('shout');
+            console.log("Returned second promise from variable ghost shout function");
+        }, 4000);
+    });
+};
+async function async_GhostStuff() {
+    console.log('async Ghost settings executed');
+
+    const first_promise= await first_function();
+    console.log("After awaiting for 2 seconds," +
+        "the promise returned from ghost speed function is:");
+    console.log(first_promise);
+
+    const second_promise= await second_function();
+    console.log("After awaiting for 4 seconds, the" +
+        "promise returned from ghost shout function is:");
+    console.log(second_promise);
+}
+function moveGhosts(x, y) {
+    x = intRandom(20, 1500) + 'px';
+    y = intRandom(20, 500) + 'px';
+    for (let i = 0; i < arrGhosts.length; i++) {
+        if (updateCount(arrGhosts[i])) {
+            control.beginPath();
+            console.log(ReadyPlayerOne.childNodes[0]);
+            if (ReadyPlayerOne.childNodes[0].textContent === '0') {
+                ReadyPlayerOne.remove();
+                alert(`GAME OVER`);
+            } else {
+                ReadyPlayerOne.style.left = x + 'px';
+                ReadyPlayerOne.style.top = y + 'px';
+                direction = '';
+                arrGhosts[i].remove();
+                generate(`${arrGhostText[i]}`);
+            }
+        }
+    }
+}
+function generate(ghost = ''){
+    let ghostEl = document.createElement('div');
+    ghostEl.className = 'box';
+    ghostEl.id = ghost;
+    ghostEl.style.top = intRandom(20, 560)+'px';
+    ghostEl.style.left = intRandom(20, 1200)+'px';
+    ReadyPlayerOne.parentNode.insertBefore(document.body.appendChild(ghostEl), ReadyPlayerOne.nextSibling)
+}
+function getBounds(obj, bShow = true) {
+    let PlayerBoundaries = ReadyPlayerOne.getBoundingClientRect();
+    let ghostBoundaries = obj.getBoundingClientRect();
+    let objX = document.getElementById(obj.id);
+    playerLeft = PlayerBoundaries.left + 'px';
+    playerTop = PlayerBoundaries.top + 'px';
+    playerRight = PlayerBoundaries.left + PlayerBoundaries.width + 'px';
+    playerBottom = PlayerBoundaries.top + PlayerBoundaries.height + 'px';
+    ghostLeft = ghostBoundaries.left + 'px';
+    ghostRight = ghostBoundaries.left + 30 + 'px';
+    ghostTop = ghostBoundaries.top + 'px';
+    ghostBottom = ghostBoundaries.top + 30 + 'px';
+    if (ghostLeft >= playerLeft && ghostRight <= playerRight && ghostTop >= playerTop && ghostBottom <= playerBottom) {
+        return `you're caught`;
+    } else {
+        // requestAnimationFrame(main);
+        obj.style.top = PlayerBoundaries.top + 'px';
+        obj.style.left = PlayerBoundaries.left + 'px';
+        if (bShow === true) {
+            return `${obj.id} location (${obj.style.top},${obj.style.left})`
+        } else {
+            return `${obj.id} is moving closer to you`;
+        }
+    }
+}
+function updateCount(ghost) {
+    if (getBounds(ghost) === `you're caught`) {
+        ReadyPlayerOne.removeChild(ReadyPlayerOne.childNodes[0]);
+        ReadyPlayerOne.appendChild(document.createTextNode(--count));
+        console.log(`${ghost.id} stole an apple!`);
+        return true;
+    } else {
+        return false;
+    }
+}
 function main() {
     // requestAnimationFrame(main);
     if (direction === 'ArrowRight') {
@@ -59,14 +183,8 @@ function main() {
     }
     movePlayer(x, y);
     moveGhosts(x, y);
+    async_GhostStuff();
     setTimeout(main, timeoutValue);
-}
-function randomGhostStuff(){
-    console.log('hi');
-    ghost1.style.transition = `${intRandom(2,6)}s linear`;
-    ghost2.style.transition = `${intRandom(2,6)}s linear`;
-    ghost3.style.transition = `${intRandom(2,6)}s linear`;
-    ghost4.style.transition = `${intRandom(2,6)}s linear`;
 }
 function movePlayer(x, y) {
     getBounds(ReadyPlayerOne, false);
@@ -113,73 +231,7 @@ function movePlayer(x, y) {
     ReadyPlayerOne.style.left = x + "px";
 
 }
-
-function moveGhosts(x, y) {
-    x = intRandom(20, 1500) + 'px';
-    y = intRandom(20, 500) + 'px';
-    for (let i = 0; i < arrGhosts.length; i++) {
-        if (updateCount(arrGhosts[i])) {
-            control.beginPath();
-            console.log(ReadyPlayerOne.childNodes[0]);
-            if (ReadyPlayerOne.childNodes[0].textContent === '0') {
-                ReadyPlayerOne.remove();
-                alert(`GAME OVER`);
-            } else {
-                ReadyPlayerOne.style.left = x + 'px';
-                ReadyPlayerOne.style.top = y + 'px';
-                direction = '';
-                arrGhosts[i].remove();
-                generate(`${arrGhostText[i]}`);
-            }
-        }
-        setTimeout(randomGhostStuff, ghostTimeout);
-    }
-}
-function generate(ghost = ''){
-    let ghostEl = document.createElement('div');
-    ghostEl.className = 'box';
-    ghostEl.id = ghost;
-    ghostEl.style.top = intRandom(20, 560)+'px';
-    ghostEl.style.left = intRandom(20, 1200)+'px';
-    ReadyPlayerOne.parentNode.insertBefore(document.body.appendChild(ghostEl), ReadyPlayerOne.nextSibling)
-}
-function getBounds(obj, bShow = true) {
-    let PlayerBoundaries = ReadyPlayerOne.getBoundingClientRect();
-    let ghostBoundaries = obj.getBoundingClientRect();
-    let objX = document.getElementById(obj.id);
-    playerLeft = PlayerBoundaries.left + 'px';
-    playerTop = PlayerBoundaries.top + 'px';
-    playerRight = PlayerBoundaries.left + PlayerBoundaries.width + 'px';
-    playerBottom = PlayerBoundaries.top + PlayerBoundaries.height + 'px';
-    ghostLeft = ghostBoundaries.left + 'px';
-    ghostRight = ghostBoundaries.left + 30 + 'px';
-    ghostTop = ghostBoundaries.top + 'px';
-    ghostBottom = ghostBoundaries.top + 30 + 'px';
-    if (ghostLeft >= playerLeft && ghostRight <= playerRight && ghostTop >= playerTop && ghostBottom <= playerBottom) {
-        return `you're caught`;
-    } else {
-        // requestAnimationFrame(main);
-        obj.style.top = PlayerBoundaries.top + 'px';
-        obj.style.left = PlayerBoundaries.left + 'px';
-        if (bShow === true) {
-            return `${obj.id} location (${obj.style.top},${obj.style.left})`
-        } else {
-            return `${obj.id} is moving closer to you`;
-        }
-    }
-}
-function updateCount(ghost) {
-    if (getBounds(ghost) === `you're caught`) {
-        ReadyPlayerOne.removeChild(ReadyPlayerOne.childNodes[0]);
-        ReadyPlayerOne.appendChild(document.createTextNode(--count));
-        console.log(`${ghost.id} stole an apple!`);
-        return true;
-    } else {
-        return false;
-    }
-}
 function generateApple() {
-    // requestAnimationFrame(main);
     let r = appleSize / 2;
     let appleX = intRandom(70, 1250);
     let appleY = intRandom(70, 550);
