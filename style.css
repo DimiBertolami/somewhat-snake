@@ -32,6 +32,18 @@ canvas{
     /*background-color: darkblue;*/
     position:absolute;
 }
+.container input{
+    position: absolute;
+    /*top: 600px;*/
+    /*left: 20px;*/
+    z-index: 3;
+}
+.container button{
+    position: absolute;
+    /*top: 630px;*/
+    /*left: 50px;*/
+    z-index: 3;
+}
 #ReadyPlayerOne{
     background-color: purple;
     color: yellow;
@@ -48,7 +60,7 @@ canvas{
     left:100px;
     border-radius: 20%;
     background-color: orange;
-    transition: 2s linear;
+    transition: 60s linear;
     position:absolute;
     opacity: 25%;
     z-index: 2;
@@ -60,7 +72,7 @@ canvas{
     border-radius: 50%;
     border: 1px solid orangered;
     background-color: springgreen;
-    transition: 4s linear;
+    transition: 60s linear;
     position:absolute;
     opacity: 25%;
     z-index: 2;
@@ -70,7 +82,7 @@ canvas{
     left:240px;
     border-radius: 50%;
     background-color: lightblue;
-    transition: 6s linear;
+    transition: 60s linear;
     position:absolute;
     opacity: 25%;
     z-index: 2;
@@ -80,7 +92,7 @@ canvas{
     left:400px;
     border-radius: 50%;
     background-color: blue;
-    transition: 8s linear;
+    transition: 60s linear;
     position:absolute;
     opacity: 25%;
     z-index: 2;

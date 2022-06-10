@@ -6,14 +6,32 @@ const ghost3 = document.getElementById('ghost3');
 const ghost4 = document.getElementById('ghost4');
 const canvasEl = document.getElementsByTagName('canvas')[0];
 const script = document.getElementsByTagName('script')[0];
+const gamespeed = document.getElementById('speed');
+const apples = document.getElementById('apples');
+let input_gameSpeed = gamespeed.value;
+let input_Apples = apples.value;
+let cookies = document.cookie;
+let newCookies = prompt("create new cookie to play game?(click cancel for no)");
+if (newCookies != null) {
+    document.cookie = `apples=5`;
+    document.cookie = `gameSpeed=50`;
+}
+
+let arrSeperateCookies = [];
+arrSeperateCookies = cookies.split('; ');
+gameSpeedCookie = arrSeperateCookies.find(row => row.startsWith('gameSpeed='));
+applesCookie = arrSeperateCookies.find(row => row.startsWith('apples='));
+const timeoutValue = gameSpeedCookie.split('=')[1];
+const initialApples = applesCookie.split('=')[1];
+if (cookies !== 'gameSpeed=50; apples=5') {
+    gamespeed.value = timeoutValue;
+    apples.value = initialApples;
+}
 count = 0;
 
-// refreshrate in milliseconds
-const timeoutValue = 50;
 const ghostTimeout = 5000;
 const IncreaseValue = 10;
 const appleSize = 70;
-const initialApples = 5;
 let arrAppleBoundaries = [];
 let arrApplesEaten = [];
 let arrGhostText = [];
@@ -21,23 +39,27 @@ let arrGhosts = []
 const arrShouts = [];
 arrShouts.push(`@@`);
 arrShouts.push(`IMA GONNA CATCH YOUOUOUOU`);
-arrShouts.push(`@@`);
-arrShouts.push(`BOEOEOEOE`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
+arrShouts.push(`LEEROY JENKINS!`);
+arrShouts.push(`BHHHOEOEOEOE`);
 arrShouts.push(`@@`);
 arrShouts.push(`@@`);
-arrShouts.push(`LEROYYY JENKINS!`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+
 arrGhosts.push(ghost1, ghost2, ghost3, ghost4);
 arrGhostText.push("ghost1", "ghost2", "ghost3", "ghost4");
 let direction;
 let randomGhostStuffRunning = false;
-const randomX = intRandom(20, 1200);
-const randomY = intRandom(20, 500);
+
 viewportHeight = document.documentElement.clientHeight;
 viewportWidth = document.documentElement.clientWidth;
-// const viewportWidth = 1385;
-// const viewportHeight = 635;
 let x = viewportWidth / 2;
 let y = viewportHeight / 2;
 maxViewportHeight = viewportWidth - appleSize - IncreaseValue;
@@ -57,14 +79,14 @@ for (let i = 0; i < initialApples; i++) {
 
 main();
 
-function randomGhostStuff(action= 'speed'){
-    switch (action){
+function randomGhostStuff(action = 'speed') {
+    switch (action) {
         case 'speed':
             //ghost speed is variable now!
-            ghost1.style.transition = `${intRandom(1,4)}s linear`;
-            ghost2.style.transition = `${intRandom(1,4)}s linear`;
-            ghost3.style.transition = `${intRandom(1,4)}s linear`;
-            ghost4.style.transition = `${intRandom(1,4)}s linear`;
+            ghost1.style.transition = `${intRandom(1, 4)}s linear`;
+            ghost2.style.transition = `${intRandom(1, 4)}s linear`;
+            ghost3.style.transition = `${intRandom(1, 4)}s linear`;
+            ghost4.style.transition = `${intRandom(1, 4)}s linear`;
             break;
         case 'shout':
             /*ghosts should shout when chasing you (and off course since the are ghosts they lack
@@ -83,46 +105,43 @@ function randomGhostStuff(action= 'speed'){
     }
     console.log(`random ${action} configured`);
 }
-//Variable Ghost Speed returns promise after 2 seconds
-const first_function = function() {
-    // console.log("Ghost Speed!");
+//Variable Ghost Speed returns promise after ghostTimeout
+const first_function = function () {
     return new Promise(resolve => {
-        setTimeout(function() {
-            ghost1.style.transition = `${intRandom(1,8)}s linear`;
-            ghost2.style.transition = `${intRandom(1,8)}s linear`;
-            ghost3.style.transition = `${intRandom(1,8)}s linear`;
-            ghost4.style.transition = `${intRandom(1,8)}s linear`;
+        setTimeout(function () {
+            ghost1.style.transition = `${intRandom(1, 8)}s linear`;
+            ghost2.style.transition = `${intRandom(1, 8)}s linear`;
+            ghost3.style.transition = `${intRandom(1, 8)}s linear`;
+            ghost4.style.transition = `${intRandom(1, 8)}s linear`;
             resolve("\t\t 1st (speed) promise");
-            // randomGhostStuff(); //action = 'speed'
-            // console.log("Returned 1st promise from speed function call");
-        }, 2000);
+        }, ghostTimeout);
     });
 };
-//Variable Ghost Shouts returns promise after 4 seconds
-const second_function = function() {
-    // console.log("entered Shouts!");
-    if (!randomGhostStuffRunning){
+//Variable Ghost Shouts returns promise after ghostTimeout
+const second_function = function () {
+    if (!randomGhostStuffRunning) {
         randomGhostStuffRunning = true;
         return new Promise(resolve => {
-            setTimeout(function() {
-            ghost1.removeChild(ghost1.childNodes[0]);
-            ghost2.removeChild(ghost2.childNodes[0]);
-            ghost3.removeChild(ghost3.childNodes[0]);
-            ghost4.removeChild(ghost4.childNodes[0]);
-            ghost1.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
-            ghost2.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
-            ghost3.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
-            ghost4.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
-            resolve("\t\t 2nd (shouts) promise");
-            }, 3000);
+            setTimeout(function () {
+                ghost1.removeChild(ghost1.childNodes[0]);
+                ghost2.removeChild(ghost2.childNodes[0]);
+                ghost3.removeChild(ghost3.childNodes[0]);
+                ghost4.removeChild(ghost4.childNodes[0]);
+                ghost1.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+                ghost2.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+                ghost3.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+                ghost4.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+                resolve("\t\t 2nd (shouts) promise");
+            }, ghostTimeout);
         });
     }
 }
 async function async_GhostStuff() {
-    const first_promise= await first_function();
-    console.log(`2s: ${first_promise}`);
-    const second_promise= await second_function();
-    console.log(`3s: ${second_promise}`);
+    let waitInSeconds = ghostTimeout / 1000;
+    const first_promise = await first_function();
+    console.log(`waited ${waitInSeconds} for speed function: ${first_promise}`);
+    const second_promise = await second_function();
+    console.log(`waited ${waitInSeconds} for shouts function: ${second_promise}`);
     randomGhostStuffRunning = false;
 }
 function moveGhosts(x, y) {
@@ -131,7 +150,6 @@ function moveGhosts(x, y) {
     for (let i = 0; i < arrGhosts.length; i++) {
         if (updateCount(arrGhosts[i])) {
             control.beginPath();
-            // alert(ReadyPlayerOne.childNodes[0].nodeValue);
             if (ReadyPlayerOne.childNodes[0].textContent >= '-1') {
                 ReadyPlayerOne.remove();
                 alert(`GAME OVER`);
@@ -145,12 +163,12 @@ function moveGhosts(x, y) {
         }
     }
 }
-function generate(ghost = ''){
+function generate(ghost = '') {
     let ghostEl = document.createElement('div');
     ghostEl.className = 'box';
     ghostEl.id = ghost;
-    ghostEl.style.top = intRandom(20, 560)+'px';
-    ghostEl.style.left = intRandom(20, 1200)+'px';
+    ghostEl.style.top = intRandom(20, 560) + 'px';
+    ghostEl.style.left = intRandom(20, 1200) + 'px';
     ReadyPlayerOne.parentNode.insertBefore(document.body.appendChild(ghostEl), ReadyPlayerOne.nextSibling)
 }
 function getBounds(obj, bShow = true) {
@@ -254,8 +272,8 @@ function movePlayer(x, y) {
 }
 function generateApple() {
     let r = appleSize / 2;
-    let appleX = intRandom(70, viewportWidth);
-    let appleY = intRandom(70, viewportHeight);
+    let appleX = intRandom(appleSize * 2, viewportWidth - appleSize - appleSize);
+    let appleY = intRandom(appleSize * 2, viewportHeight - appleSize - appleSize);
     console.log(`apple (${appleX},${appleY})`);
     control.fillStyle = 'green';
     control.beginPath();
@@ -288,10 +306,14 @@ window.addEventListener('resize', () => {
 })
 document.body.addEventListener("keydown", function (e) {
     direction = e.key;
-    if(!direction==='ArrowRight' || !direction==='ArrowLeft' || !direction==='ArrowUp'|| !direction==='ArrowDown'){
+    if (!direction === 'ArrowRight' || !direction === 'ArrowLeft' || !direction === 'ArrowUp' || !direction === 'ArrowDown') {
         console.log(direction);
     }
 })
-// document.body.addEventListener("keyup", (e)=>{
-//     direction = e.key;
-// })
+document.getElementById('button').addEventListener('click', () => {
+    input_Apples = apples.value;
+    input_gameSpeed = gamespeed.value;
+    document.cookie = `apples=${input_Apples}`
+    document.cookie = `gameSpeed=${input_gameSpeed}`
+    location.reload();
+})
