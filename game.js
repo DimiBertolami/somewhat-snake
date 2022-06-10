@@ -12,15 +12,26 @@ count = 0;
 const timeoutValue = 50;
 const ghostTimeout = 5000;
 const IncreaseValue = 10;
-const appleSize = 20;
+const appleSize = 70;
 const initialApples = 5;
 let arrAppleBoundaries = [];
 let arrApplesEaten = [];
 let arrGhostText = [];
 let arrGhosts = []
+const arrShouts = [];
+arrShouts.push(`@@`);
+arrShouts.push(`IMA GONNA CATCH YOUOUOUOU`);
+arrShouts.push(`@@`);
+arrShouts.push(`BOEOEOEOE`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`@@`);
+arrShouts.push(`LEROYYY JENKINS!`);
 arrGhosts.push(ghost1, ghost2, ghost3, ghost4);
 arrGhostText.push("ghost1", "ghost2", "ghost3", "ghost4");
 let direction;
+let randomGhostStuffRunning = false;
 const randomX = intRandom(20, 1200);
 const randomY = intRandom(20, 500);
 viewportHeight = document.documentElement.clientHeight;
@@ -34,10 +45,10 @@ maxViewportWidth = viewportHeight - appleSize - IncreaseValue;
 canvasEl.width = viewportWidth - appleSize;
 canvasEl.height = viewportHeight - appleSize;
 ReadyPlayerOne.appendChild(document.createTextNode(`0`));
-ghost1.appendChild(document.createTextNode(`GET OVER HERE`));
-ghost2.appendChild(document.createTextNode(`IMA GONNA CATCH YOUOUOUOU`));
-ghost3.appendChild(document.createTextNode(`WHERE YOU GOIN?`));
-ghost4.appendChild(document.createTextNode(`I'M NOT GONNA HURT YOU`));
+ghost1.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+ghost2.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+ghost3.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+ghost4.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
 // this code generates the random apples
 for (let i = 0; i < initialApples; i++) {
     arrAppleBoundaries.push(generateApple());
@@ -56,53 +67,63 @@ function randomGhostStuff(action= 'speed'){
             ghost4.style.transition = `${intRandom(1,4)}s linear`;
             break;
         case 'shout':
-            //ghosts should talk when chasing you..
+            /*ghosts should shout when chasing you (and off course since the are ghosts they lack
+             proper grammar)
+
+             */
             ghost1.removeChild(ghost1.childNodes[0]);
             ghost2.removeChild(ghost2.childNodes[0]);
             ghost3.removeChild(ghost3.childNodes[0]);
             ghost4.removeChild(ghost4.childNodes[0]);
-            ghost1.appendChild(document.createTextNode(`IMA ALFA GHOST!`));
-            ghost2.appendChild(document.createTextNode(`IMA GONNA CATCH YOUOUOUOU`));
-            ghost3.appendChild(document.createTextNode(`STOP RUNNING`));
-            ghost4.appendChild(document.createTextNode(`BOEOEOEOE`));
+            ghost1.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+            ghost2.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+            ghost3.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+            ghost4.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
             break;
     }
     console.log(`random ${action} configured`);
 }
 //Variable Ghost Speed returns promise after 2 seconds
 const first_function = function() {
-    console.log("Entered first function," + "Variable Ghost Speed");
+    // console.log("Ghost Speed!");
     return new Promise(resolve => {
         setTimeout(function() {
-            resolve("\t\t This is first promise");
-            randomGhostStuff(); //action = 'speed'
-            console.log("Returned first promise from variable ghost speed function");
+            ghost1.style.transition = `${intRandom(1,8)}s linear`;
+            ghost2.style.transition = `${intRandom(1,8)}s linear`;
+            ghost3.style.transition = `${intRandom(1,8)}s linear`;
+            ghost4.style.transition = `${intRandom(1,8)}s linear`;
+            resolve("\t\t 1st (speed) promise");
+            // randomGhostStuff(); //action = 'speed'
+            // console.log("Returned 1st promise from speed function call");
         }, 2000);
     });
 };
 //Variable Ghost Shouts returns promise after 4 seconds
 const second_function = function() {
-    console.log("Entered second function," + "Variable Ghost Shouts!");
-    return new Promise(resolve => {
-        setTimeout(function() {
-            resolve("\t\t This is second promise");
-            randomGhostStuff('shout');
-            console.log("Returned second promise from variable ghost shout function");
-        }, 4000);
-    });
-};
+    // console.log("entered Shouts!");
+    if (!randomGhostStuffRunning){
+        randomGhostStuffRunning = true;
+        return new Promise(resolve => {
+            setTimeout(function() {
+            ghost1.removeChild(ghost1.childNodes[0]);
+            ghost2.removeChild(ghost2.childNodes[0]);
+            ghost3.removeChild(ghost3.childNodes[0]);
+            ghost4.removeChild(ghost4.childNodes[0]);
+            ghost1.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+            ghost2.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+            ghost3.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+            ghost4.appendChild(document.createTextNode(arrShouts[intRandom(0, arrShouts.length)]));
+            resolve("\t\t 2nd (shouts) promise");
+            }, 3000);
+        });
+    }
+}
 async function async_GhostStuff() {
-    console.log('async Ghost settings executed');
-
     const first_promise= await first_function();
-    console.log("After awaiting for 2 seconds," +
-        "the promise returned from ghost speed function is:");
-    console.log(first_promise);
-
+    console.log(`2s: ${first_promise}`);
     const second_promise= await second_function();
-    console.log("After awaiting for 4 seconds, the" +
-        "promise returned from ghost shout function is:");
-    console.log(second_promise);
+    console.log(`3s: ${second_promise}`);
+    randomGhostStuffRunning = false;
 }
 function moveGhosts(x, y) {
     x = intRandom(20, 1500) + 'px';
@@ -110,8 +131,8 @@ function moveGhosts(x, y) {
     for (let i = 0; i < arrGhosts.length; i++) {
         if (updateCount(arrGhosts[i])) {
             control.beginPath();
-            console.log(ReadyPlayerOne.childNodes[0]);
-            if (ReadyPlayerOne.childNodes[0].textContent === '0') {
+            // alert(ReadyPlayerOne.childNodes[0].nodeValue);
+            if (ReadyPlayerOne.childNodes[0].textContent >= '-1') {
                 ReadyPlayerOne.remove();
                 alert(`GAME OVER`);
             } else {

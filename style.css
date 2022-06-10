@@ -1,3 +1,8 @@
+*{
+    position:absolute;
+    z-index: 0;
+
+}
 div {
     width: 30px;
     height: 30px;
@@ -11,14 +16,28 @@ div {
 }
 canvas{
     background-color: beige;
-    position:absolute;
+    position:relative;
+    z-index: 1;
     /*width: 1380;*/
     /*height: 630;*/
+}
+.container{
+    width: 30px;
+    height: 30px;
+    top: 7px;
+    left: 7px;
+    padding: 0px;
+    border: 2px solid deepskyblue;
+    margin: 0;
+    /*background-color: darkblue;*/
+    position:absolute;
 }
 #ReadyPlayerOne{
     background-color: purple;
     color: yellow;
     font-size: xx-large;
+    z-index: 2;
+
     /*top: 900px;*/
     /*left: 600px;*/
     position:absolute;
@@ -32,6 +51,7 @@ canvas{
     transition: 2s linear;
     position:absolute;
     opacity: 25%;
+    z-index: 2;
 
 }
 #ghost2{
@@ -43,6 +63,7 @@ canvas{
     transition: 4s linear;
     position:absolute;
     opacity: 25%;
+    z-index: 2;
 }
 #ghost3{
     top:240px;
@@ -52,6 +73,7 @@ canvas{
     transition: 6s linear;
     position:absolute;
     opacity: 25%;
+    z-index: 2;
 }
 #ghost4{
     top:400px;
@@ -61,6 +83,7 @@ canvas{
     transition: 8s linear;
     position:absolute;
     opacity: 25%;
+    z-index: 2;
 }
 h1{
     font-size: xxx-large;
