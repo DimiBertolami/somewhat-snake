@@ -254,8 +254,8 @@ function movePlayer(x, y) {
 }
 function generateApple() {
     let r = appleSize / 2;
-    let appleX = intRandom(70, 1250);
-    let appleY = intRandom(70, 550);
+    let appleX = intRandom(70, viewportWidth);
+    let appleY = intRandom(70, viewportHeight);
     console.log(`apple (${appleX},${appleY})`);
     control.fillStyle = 'green';
     control.beginPath();
