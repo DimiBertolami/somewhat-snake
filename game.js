@@ -13,6 +13,7 @@ let input_gameSpeed = gamespeed.value;
 let input_Apples = apples.value;
 let cookies = document.cookie;
 console.log(cookies);
+document.cookie = `bClicked=false`;
 arr2SeperateCookies = cookies.split('; ');
 bClickedCookie = arr2SeperateCookies.find(row => row.startsWith('bClicked='));
 const bClicked =bClickedCookie.split('=')[1];
