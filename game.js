@@ -11,12 +11,12 @@ const apples = document.getElementById('apples');
 let input_gameSpeed = gamespeed.value;
 let input_Apples = apples.value;
 let cookies = document.cookie;
-let newCookies = prompt("create new cookie to play game?(click cancel for no)");
+let newCookies = prompt("Create 1st Game Cookie?(cancel for no)", "click OK if you deleted a cookie key/value in your developer tools");
+
 if (newCookies != null) {
     document.cookie = `apples=5`;
     document.cookie = `gameSpeed=50`;
 }
-
 let arrSeperateCookies = [];
 arrSeperateCookies = cookies.split('; ');
 gameSpeedCookie = arrSeperateCookies.find(row => row.startsWith('gameSpeed='));
@@ -32,31 +32,26 @@ count = 0;
 const ghostTimeout = 5000;
 const IncreaseValue = 10;
 const appleSize = 70;
+let direction;
+let randomGhostStuffRunning = false;
 let arrAppleBoundaries = [];
 let arrApplesEaten = [];
 let arrGhostText = [];
 let arrGhosts = []
 const arrShouts = [];
-arrShouts.push(`@@`);
-arrShouts.push(`IMA GONNA CATCH YOUOUOUOU`);
-arrShouts.push(`LEEROY JENKINS!`);
-arrShouts.push(`BHHHOEOEOEOE`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
-arrShouts.push(`@@`);
+// creating some ascii art while doing my pushups ^^ :facepalm:
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `IMMA GONNA CATCH YOUOUOUOU`, `@@`, `@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `LEEROY JENKINS!`, `@@`,`@@`, `@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `BHHHOEOEOEOE`,`@@`,`@@`,`@@`,`@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`);
+arrShouts.push(`@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`, `@@`);
 
 arrGhosts.push(ghost1, ghost2, ghost3, ghost4);
 arrGhostText.push("ghost1", "ghost2", "ghost3", "ghost4");
-let direction;
-let randomGhostStuffRunning = false;
 
 viewportHeight = document.documentElement.clientHeight;
 viewportWidth = document.documentElement.clientWidth;
