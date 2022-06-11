@@ -19,5 +19,5 @@ if you changed the amount of apples you click cancel on the prompt otherwise the
 you can also view or change the content of the cookie key/value pair in your developer tools:
 ![cookies](cookies.png "the session cookie store")
 update: now in the cookie store you find a boolean cookie bClicked=false
-set this to true if you don't want the annoying cookie prompt each reload.. for now remember to set it back if you would like the cookie prompt back
+set this to true if you don't want the annoying cookie prompt each reload.. hard refreshing the page (CTRL+F5 on windows) sets it back to false.. Now  you can reset the game by clicking the button without the cookie prompt!
 
