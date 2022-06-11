@@ -8,25 +8,35 @@ const canvasEl = document.getElementsByTagName('canvas')[0];
 const script = document.getElementsByTagName('script')[0];
 const gamespeed = document.getElementById('speed');
 const apples = document.getElementById('apples');
+let arrSeperateCookies = [];
 let input_gameSpeed = gamespeed.value;
 let input_Apples = apples.value;
 let cookies = document.cookie;
-let newCookies = prompt("Create 1st Game Cookie?(cancel for no)", "click OK if you deleted a cookie key/value in your developer tools");
+console.log(cookies);
+arr2SeperateCookies = cookies.split('; ');
+bClickedCookie = arr2SeperateCookies.find(row => row.startsWith('bClicked='));
+const bClicked =bClickedCookie.split('=')[1];
+if(bClicked !== 'true'){
+    let newCookies = prompt("Create 1st Game Cookie?(cancel for no)", "click OK if you deleted a cookie key/value in your developer tools");
 
-if (newCookies != null) {
-    document.cookie = `apples=5`;
-    document.cookie = `gameSpeed=50`;
+    if (newCookies != null) {
+        document.cookie = `apples=5`;
+        document.cookie = `gameSpeed=50`;
+        document.cookie = `bClicked=true`;
+    }
 }
-let arrSeperateCookies = [];
-arrSeperateCookies = cookies.split('; ');
-gameSpeedCookie = arrSeperateCookies.find(row => row.startsWith('gameSpeed='));
-applesCookie = arrSeperateCookies.find(row => row.startsWith('apples='));
-const timeoutValue = gameSpeedCookie.split('=')[1];
-const initialApples = applesCookie.split('=')[1];
-if (cookies !== 'gameSpeed=50; apples=5') {
-    gamespeed.value = timeoutValue;
-    apples.value = initialApples;
-}
+    arrSeperateCookies = cookies.split('; ');
+    gameSpeedCookie = arrSeperateCookies.find(row => row.startsWith('gameSpeed='));
+    applesCookie = arrSeperateCookies.find(row => row.startsWith('apples='));
+
+    const timeoutValue = gameSpeedCookie.split('=')[1];
+    const initialApples = applesCookie.split('=')[1];
+
+    if (cookies !== 'gameSpeed=50; apples=5') {
+        gamespeed.value = timeoutValue;
+        apples.value = initialApples;
+
+    }
 count = 0;
 
 const ghostTimeout = 5000;
@@ -308,7 +318,8 @@ document.body.addEventListener("keydown", function (e) {
 document.getElementById('button').addEventListener('click', () => {
     input_Apples = apples.value;
     input_gameSpeed = gamespeed.value;
-    document.cookie = `apples=${input_Apples}`
-    document.cookie = `gameSpeed=${input_gameSpeed}`
+    document.cookie = `apples=${input_Apples}`;
+    document.cookie = `gameSpeed=${input_gameSpeed}`;
+    document.cookie = `bClicked=true`;
     location.reload();
 })
