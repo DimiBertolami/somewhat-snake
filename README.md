@@ -10,3 +10,11 @@ the game is now using cookies to store the gamespeed and the amount of apples it
 ## One does not "simply" use code from Yasser...
 I FINALLY think I figured out Yasser's code contribution with his 4k screen resolution.. the game was probably patheticly small on his screen so he adapted my code to work on his screen. I think I can finally say I am now using his code correctly so that the screen can be resised, and the apples will allways be spawned inside the complete canvas without spawning at an 'untouchable location'
 ![largeScreens](largescreens.png "large screens with 500 apples generated")
+
+## a bit about the input text fields, the cookie prompt and the button
+
+the button click sets the values in the input fields.
+then the page reloads so you get the cookie prompt. 
+if you changed the amount of apples you click cancel on the prompt otherwise the new settings are immediately overwritten.
+you can also view or change the content of the cookie key/value pair in your developer tools:
+![cookies](cookies.png "the session cookie store")
