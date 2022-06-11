@@ -18,3 +18,6 @@ then the page reloads so you get the cookie prompt.
 if you changed the amount of apples you click cancel on the prompt otherwise the new settings are immediately overwritten.
 you can also view or change the content of the cookie key/value pair in your developer tools:
 ![cookies](cookies.png "the session cookie store")
+update: now in the cookie store you find a boolean cookie bClicked=false
+set this to true if you don't want the annoying cookie prompt each reload.. for now remember to set it back if you would like the cookie prompt back
+
